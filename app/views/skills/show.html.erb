@@ -1,0 +1,68 @@
+<p style="color: green"><%= notice %></p>
+<div class="d-flex justify-content-between">
+  <span><%= link_to "<- Back to skills", skills_path, class: 'btn btn-link' %></span>
+  <span><%= link_to "Edit this skill", edit_skill_path(@skill), class: 'btn btn-link' %></span>
+</div>
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+      <div class="col-6"><h6 class="mb-0 text-white lh-100 fs-4"><%= "#{@skill.name}#{@skill.skill_category&.name ? " (#{@skill.skill_category&.name})" : nil}" %></h6></div>
+      <div class="d-flex justify-content-end ms-auto">
+        <span><%= button_to "Destroy this skill", @skill, method: :delete, class: 'btn btn-danger' %></span>
+      </div>
+    <!--    <small>Since 2011</small>-->
+</div>
+<div class="my-5 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-bottom border-gray pb-2 mb-0">
+    <b>Skill description</b>
+  </h6>
+  <p>
+    <%= @skill.description %>
+  </p>
+</div>
+
+<div class="my-5 p-3 bg-white rounded shadow-sm">
+  <h6 class="d-flex border-bottom border-gray pb-2 mb-0">
+    <ul class="nav nav-pills" id="myTab" role="tablist">
+      <% @skill.skill_levels.each_with_index  do |skill_level, i| %>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link <%= i.zero? ? 'active' : '' %>" id="<%= [skill_level.level.title, skill_level.id].join("-") %>" data-bs-toggle="tab" data-bs-target="#<%= [skill_level.level.title, skill_level.id, 'tab-id'].join("-") %>" type="button" role="tab" aria-controls="home" aria-selected="true"><%= skill_level.level.title %></button>
+        </li>
+      <% end %>
+    </ul>
+  </h6>
+  <div class="tab-content" id="myTabContent">
+    <div class="my-4">
+      <h6><b>What you should know</b></h6>
+    </div>
+    <% @skill.skill_levels.each_with_index  do |skill_level, i| %>
+      <%= render 'skills/add_learning_material', skill_level: skill_level  %>
+      <div class="tab-pane fade show <%= i.zero? ? 'active' : '' %>" id="<%= [skill_level.level.title, skill_level.id, 'tab-id'].join("-") %>" role="tabpanel" aria-labelledby="<%= [skill_level.level.title, skill_level.id].join("-") %>">
+        <%= skill_level.notice %>
+        <div class="d-flex justify-content-between align-items-center my-2">
+          <h6>
+            <b>Learning materials</b>
+          </h6>
+          <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>">+ Add</div>
+        </div>
+        <div class="row">
+          <% skill_level.learning_materials.each do |material| %>
+
+            <div class="col-md-6">
+              <div class="d-flex align-items-center p-3 my-2 text-white-50 bg-purple rounded shadow-sm">
+
+                <div class="lh-1">
+                  <h1 class="h6 mb-0 text-white lh-1"><%= material.name %></h1>
+                  <small><%= material.material_type %></small>
+                </div>
+                <div class="ms-auto">
+                  <%= link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5' %>
+                  <%= link_to 'Edit Learning Material', edit_learning_material_path(material), class: 'btn btn-link text-white-50 fs-5' %>
+
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

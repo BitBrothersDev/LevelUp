@@ -1,0 +1,56 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Skills</h1>
+
+
+<div id="skills">
+<!--    <div class="row mb-2 d-flex justify-content-around">-->
+      <% @skills.each do |skill| %>
+<!--        <div class="col-md-4">-->
+          <%#= link_to skill do %>
+<!--              <div class="d-flex align-items-center p-4 my-3 text-white-50 bg-purple rounded shadow-sm">-->
+<!--                <h6 class="mb-0 text-white lh-100 "><%#= skill.name %></h6>-->
+<!--              </div>-->
+          <%# end %>
+<!--        </div>-->
+    <% end %>
+<!--  </div>-->
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Main Skill Category</th>
+    <th scope="col">Skill Category</th>
+    <th scope="col">Skill Name</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @skills.each do |hash_parent_categories| %>
+      <% hash_parent_categories.each do |parent_category, skill_category_arr| %>
+        <tr>
+          <td><div class="btn btn-danger"><%= parent_category %></div></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% skill_category_arr.each do |skill_category, skill_arr| %>
+          <tr>
+            <td></td>
+
+            <td><div class="btn btn-primary"><%= skill_category %></div></td>
+            <td></td>
+          </tr>
+          <% skill_arr.each do |skill| %>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><%= link_to skill.name , skill%></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%#= link_to "New skill", new_skill_path %>

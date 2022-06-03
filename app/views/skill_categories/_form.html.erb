@@ -1,0 +1,39 @@
+<%= form_with(model: skill_category) do |form| %>
+  <% if skill_category.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(skill_category.errors.count, "error") %> prohibited this skill_category from being saved:</h2>
+
+      <ul>
+        <% skill_category.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+
+  <div>
+    <%= form.label :parent_category, style: "display: block" %>
+    <%= form.select :parent_category_id, SkillCategory.all.collect { |s_c| [s_c.name, s_c.id]}, { include_blank: true },  class: 'form-select' %>
+  </div>
+
+<!--  <div>-->
+    <%#= form.label :children, style: "display: block" %>
+    <%#= form.select :child_ids, SkillCategory.all.where.not(id: skill_category.id).collect { |s_c| ["#{s_c.name}#{s_c.parent_category&.name ? " (#{s_c.parent_category&.name})" : nil}", s_c.id]},{ include_hidden: false, include_blank: "Please Select" }, multiple: true,  class: 'form-select' %>
+<!--  </div>-->
+
+
+<!--  <div>-->
+    <%#= form.label :daughter_category, style: "display: block" %>
+    <%#= form.select :daughter_category_id, SkillCategory.all.collect { |s_c| [s_c.id, s_c.name]}, {},  class: 'form-select' %>
+<!--  </div>-->
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

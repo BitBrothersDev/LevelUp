@@ -1,0 +1,23 @@
+<div id="<%= dom_id skill_category %>">
+  <p>
+    <strong>Name:</strong>
+    <%= skill_category.name %>
+  </p>
+
+  <p>
+    <strong>Parent category:</strong>
+    <%= skill_category.parent_category&.name %>
+  </p>
+
+  <p>
+    <strong>Children category:</strong>
+    <% skill_category.children.each do |children| %>
+      <br>
+      <strong>Name:</strong>
+      <%= children.name %>
+
+      <strong>Parent category:</strong>
+      <%= children.parent_category&.name %>
+    <% end %>
+  </p>
+</div>
