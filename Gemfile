@@ -10,8 +10,8 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.4"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
-
+# gem "sqlite3", "~> 1.4"
+gem 'mysql2'
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -55,6 +55,12 @@ group :development, :test do
 end
 
 group :development do
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger', '>= 0.1.1'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano-figaro-yml', '~> 1.0.2'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -67,3 +73,4 @@ end
 
 gem "bootstrap", "~> 5.1.3"
 gem 'seed_dump'
+gem 'figaro'

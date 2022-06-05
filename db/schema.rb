@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_03_152038) do
-  create_table "job_functions", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2022_06_03_150056) do
+  create_table "job_functions", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "learning_materials", force: :cascade do |t|
+  create_table "learning_materials", charset: "utf8mb4", force: :cascade do |t|
     t.integer "material_type"
     t.string "name"
     t.string "link"
@@ -27,32 +27,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_152038) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "levels", force: :cascade do |t|
+  create_table "levels", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
   end
 
-  create_table "material_containers", force: :cascade do |t|
-    t.integer "job_function_id", null: false
-    t.integer "level_id", null: false
+  create_table "material_containers", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "job_function_id", null: false
+    t.bigint "level_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["job_function_id"], name: "index_material_containers_on_job_function_id"
     t.index ["level_id"], name: "index_material_containers_on_level_id"
   end
 
-  create_table "skill_categories", force: :cascade do |t|
+  create_table "skill_categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.integer "parent_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "skill_levels", force: :cascade do |t|
-    t.integer "skill_id", null: false
-    t.integer "level_id", null: false
+  create_table "skill_levels", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "skill_id", null: false
+    t.bigint "level_id", null: false
     t.string "notice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -60,12 +60,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_152038) do
     t.index ["skill_id"], name: "index_skill_levels_on_skill_id"
   end
 
-  create_table "skills", force: :cascade do |t|
+  create_table "skills", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "skill_category_id"
+    t.bigint "skill_category_id"
     t.index ["skill_category_id"], name: "index_skills_on_skill_category_id"
   end
 

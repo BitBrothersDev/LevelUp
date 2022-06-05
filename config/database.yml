@@ -5,21 +5,25 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  username:  <%= ENV['CUSTOM_DATABASE_USERNAME'] %>
+  password: <%= ENV['CUSTOM_DATABASE_PASSWORD'] %>
+  host: <%= ENV['CUSTOM_DATABASE_HOST'] %>
+  port: <%= ENV['CUSTOM_DATABASE_PORT'] %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: level_up_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: db/test.sqlite3
+#test:
+#  database: level_up_test
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: level_up_production
+#  126d08d6f7d69c4f8e25e5f7de824211a963eca8dbeef282e1499b6bb8d801a6f790704fa6c6fe9e3f2578123d2cc4b6f77ed2461e8eb4143544e48c0b108bd2

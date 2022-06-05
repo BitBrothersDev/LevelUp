@@ -66,6 +66,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    airbrussh (1.4.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
     bindex (0.8.1)
@@ -76,6 +78,24 @@ GEM
       popper_js (>= 2.9.3, < 3)
       sassc-rails (>= 2.0.0)
     builder (3.2.4)
+    capistrano (3.17.0)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (2.1.0)
+      capistrano (~> 3.1)
+    capistrano-figaro-yml (1.0.5)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2, >= 1.2.0)
+    capistrano-passenger (0.2.1)
+      capistrano (~> 3.0)
+    capistrano-rails (1.6.2)
+      capistrano (~> 3.1)
+      capistrano-bundler (>= 1.1, < 3)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
@@ -86,6 +106,8 @@ GEM
     erubi (1.10.0)
     execjs (2.8.1)
     ffi (1.15.5)
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -109,6 +131,7 @@ GEM
     mini_mime (1.1.2)
     minitest (5.15.0)
     msgpack (1.5.2)
+    mysql2 (0.5.4)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -119,10 +142,13 @@ GEM
       timeout
     net-protocol (0.1.3)
       timeout
+    net-scp (3.0.0)
+      net-ssh (>= 2.6.5, < 7.0.0)
     net-smtp (0.3.1)
       digest
       net-protocol
       timeout
+    net-ssh (6.1.0)
     nio4r (2.5.8)
     nokogiri (1.13.6-arm64-darwin)
       racc (~> 1.4)
@@ -184,7 +210,9 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
+    sshkit (1.21.2)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     stimulus-rails (1.0.4)
       railties (>= 6.0.0)
     strscan (3.0.3)
@@ -213,9 +241,17 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap (~> 5.1.3)
+  capistrano
+  capistrano-bundler
+  capistrano-figaro-yml (~> 1.0.2)
+  capistrano-passenger (>= 0.1.1)
+  capistrano-rails
+  capistrano-rvm
   debug
+  figaro
   importmap-rails
   jbuilder
+  mysql2
   pry
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.4)
@@ -223,7 +259,6 @@ DEPENDENCIES
   sassc-rails
   seed_dump
   sprockets-rails
-  sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
   tzinfo-data
