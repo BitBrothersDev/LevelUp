@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-edit_skill_level-<%= skill_level.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -9,7 +9,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <%= form.label :notice, style: "col-form-label" %>
-            <%= form.text_field :notice,  class: 'form-control' %>
+            <%= form.rich_text_area :notice,  class: 'form-control' %>
           </div>
         </div>
         <div class="modal-footer">
