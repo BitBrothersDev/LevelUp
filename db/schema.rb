@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_05_132140) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_05_135524) do
   create_table "action_text_rich_texts", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -88,6 +88,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_132140) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "skill_level_items", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "tip"
+    t.bigint "skill_level_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skill_level_id"], name: "index_skill_level_items_on_skill_level_id"
+  end
+
   create_table "skill_levels", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "skill_id", null: false
     t.bigint "level_id", null: false
@@ -111,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_132140) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "material_containers", "job_functions"
   add_foreign_key "material_containers", "levels"
+  add_foreign_key "skill_level_items", "skill_levels"
   add_foreign_key "skill_levels", "levels"
   add_foreign_key "skill_levels", "skills"
 end

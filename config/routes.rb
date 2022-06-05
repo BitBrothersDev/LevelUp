@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resources :skill_level_items
   resources :skill_categories
   resources :learning_materials
   resources :skill_levels do
+    resources :skill_level_items
     resources :learning_materials
   end
   resources :material_containers

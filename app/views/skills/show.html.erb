@@ -31,15 +31,37 @@
   </h6>
   <div class="tab-content" id="myTabContent">
     <% @skill.skill_levels.each_with_index  do |skill_level, i| %>
-      <%= render 'skills/skill_level_form', skill_level: skill_level  %>
+      <%= render 'skills/skill_level_form', skill_level: skill_level %>
+      <%= render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: SkillLevelItem.new  %>
       <%= render 'skills/add_learning_material', skill_level: skill_level  %>
       <div class="tab-pane fade show <%= i.zero? ? 'active' : '' %>" id="<%= [skill_level.level.title, skill_level.id, 'tab-id'].join("-") %>" role="tabpanel" aria-labelledby="<%= [skill_level.level.title, skill_level.id].join("-") %>">
         <div class="d-flex justify-content-between align-items-center">
-          <div class="mt-4 mb-2">
+          <div class="mt-4 mb-2  fs-5">
             <b>What you should know</b>
           </div>
-          <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-edit_skill_level-<%= skill_level.id %>">Edit</div>
+          <div class="ms-auto">
+            <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-add_skill_level_item-<%= skill_level.id %>-">Add Item</div>
+            <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-edit_skill_level-<%= skill_level.id %>">Edit</div>
+          </div>
         </div>
+        <div class="bg-purple rounded p-3">
+            <% skill_level.skill_level_items.each_with_index  do |skill_level_item, i| %>
+                <div class="bg-white my-2 rounded px-3 py-1">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div class="text-black fw-normal "><%= skill_level_item.name %></div>
+                      <small style='font-size:10px'><%= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip' %></small>
+                    </div>
+
+                    <div class="ms-auto">
+                      <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-add_skill_level_item-<%= skill_level.id %>-<%= skill_level_item.id %>">Edit</div>
+                    </div>
+                  </div>
+                </div>
+              <%= render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item  %>
+            <% end %>
+        </div>
+
         <%= skill_level.notice %>
         <div class="d-flex justify-content-between align-items-center my-2">
           <h6>
