@@ -38,8 +38,8 @@ class SkillLevelsController < ApplicationController
   def update
     respond_to do |format|
       if @skill_level.update(skill_level_params)
-        format.html { redirect_to skill_level_url(@skill_level), notice: "Skill level was successfully updated." }
-        format.json { render :show, status: :ok, location: @skill_level }
+        format.html { redirect_back(fallback_location: @skill_level.skill, notice: "Skill level was successfully updated.") }
+        format.json { render :show, status: :ok, location: @skill_level.skill }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @skill_level.errors, status: :unprocessable_entity }
