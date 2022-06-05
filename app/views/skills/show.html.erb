@@ -59,25 +59,33 @@
                 </div>
               </div>
             <div class="collapse" id="collapse-learning-material-<%= skill_level_item.id %>">
-              <div class="row">
-                <% skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material| %>
+              <% skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item) %>
+              <% if skill_learning_materials.any? %>
+                <div class="row">
+                  <% skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material| %>
 
-                  <div class="col-md-6">
-                    <div class="border d-flex align-items-center p-3 my-2 text-white-50 bg-purple rounded shadow-sm">
+                    <div class="col-md-6">
+                      <div class="border d-flex align-items-center p-3 my-2 text-white-50 bg-purple rounded shadow-sm">
 
-                      <div class="lh-1">
-                        <h1 class="h6 mb-0 text-white lh-1"><%= material.name %></h1>
-                        <small><%= material.material_type %></small>
-                      </div>
-                      <div class="ms-auto">
-                        <%= link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5' %>
+                        <div class="lh-1">
+                          <h1 class="h6 mb-0 text-white lh-1"><%= material.name %></h1>
+                          <small><%= material.material_type %></small>
+                        </div>
+                        <div class="ms-auto">
+                          <%= link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5' %>
 
-                        <div class="btn btn-link text-white-50 fs-5" type="button" data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>-<%= material.id %>">Edit</div>
+                          <div class="btn btn-link text-white-50 fs-5" type="button" data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>-<%= material.id %>">Edit</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <% end %>
-              </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="justify-content-center d-flex align-items-center  text-white">
+                  There is not any materials
+                  <div class="btn btn-link text-white" type="button" data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>-">+ Add</div>
+                </div>
+              <% end %>
             </div>
             <%= render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item  %>
           <% end %>
