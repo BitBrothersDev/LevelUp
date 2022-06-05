@@ -75,3 +75,4 @@ gem "bootstrap", "~> 5.1.3"
 gem 'seed_dump'
 gem 'figaro'
 gem 'ed25519'
+gem 'bcrypt_pbkdf'
