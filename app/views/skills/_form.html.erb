@@ -27,6 +27,11 @@
   </div>
 
   <div>
+    <%= form.label :levels, style: "display: block" %>
+    <%= form.select :level_ids, Level.all.collect { |s_l| ["#{s_l.title} (#{s_l.name})", s_l.id]}, { include_hidden: false, include_blank: "Please Select" }, multiple: true , class: 'form-select' %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
