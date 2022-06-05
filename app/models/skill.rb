@@ -1,5 +1,5 @@
 class Skill < ApplicationRecord
-  has_many :skill_levels
+  has_many :skill_levels, :dependent => :delete_all
   has_many :levels, through: :skill_levels
   belongs_to :skill_category
 
