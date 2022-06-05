@@ -33,7 +33,7 @@
     <% @skill.skill_levels.each_with_index  do |skill_level, i| %>
       <%= render 'skills/skill_level_form', skill_level: skill_level %>
       <%= render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: SkillLevelItem.new  %>
-      <%= render 'skills/add_learning_material', skill_level: skill_level  %>
+      <%= render 'skills/add_learning_material', skill_level: skill_level, learning_material: LearningMaterial.new  %>
       <div class="tab-pane fade show <%= i.zero? ? 'active' : '' %>" id="<%= [skill_level.level.title, skill_level.id, 'tab-id'].join("-") %>" role="tabpanel" aria-labelledby="<%= [skill_level.level.title, skill_level.id].join("-") %>">
         <div class="d-flex justify-content-between align-items-center">
           <div class="mt-4 mb-2  fs-5">
@@ -67,7 +67,7 @@
           <h6>
             <b>Learning materials</b>
           </h6>
-          <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>">+ Add</div>
+          <div class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>-">+ Add</div>
         </div>
         <div class="row">
           <% skill_level.learning_materials.each do |material| %>
@@ -81,8 +81,9 @@
                 </div>
                 <div class="ms-auto">
                   <%= link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5' %>
-                  <%= link_to 'Edit Learning Material', edit_learning_material_path(material), class: 'btn btn-link text-white-50 fs-5' %>
+                  <%= render 'skills/add_learning_material', skill_level: skill_level, learning_material: material  %>
 
+                  <div class="btn btn-link text-white-50 fs-5" type="button" data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>-<%= material.id %>">Edit</div>
                 </div>
               </div>
             </div>

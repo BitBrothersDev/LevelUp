@@ -1,11 +1,11 @@
-<div class="modal fade" id="modal-add-material-<%= skill_level.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-add-material-<%= skill_level.id %>-<%= learning_material.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <%= form_for [skill_level, LearningMaterial.new] do |form|%>
+      <%= form_for [skill_level, learning_material] do |form|%>
         <div class="modal-body">
             <div class="mb-3">
               <%= form.label :material_type, class: 'col-form-label' %>
