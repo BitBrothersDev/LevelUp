@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_05_135524) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_05_183131) do
   create_table "action_text_rich_texts", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_135524) do
     t.string "learnable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "skill_level_item_id"
+    t.index ["skill_level_item_id"], name: "index_learning_materials_on_skill_level_item_id"
   end
 
   create_table "levels", charset: "utf8mb4", force: :cascade do |t|

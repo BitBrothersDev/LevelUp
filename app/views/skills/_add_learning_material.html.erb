@@ -1,8 +1,8 @@
-<div class="modal fade" id="modal-add-material-<%= skill_level.id %>-<%= learning_material.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade text-black" id="modal-add-material-<%= skill_level.id %>-<%= learning_material.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title " id="exampleModalLabel"><%= learning_material.id.nil? ? "Add Learning Material" : "Edit Learning Material" %></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <%= form_for [skill_level, learning_material] do |form|%>
@@ -18,6 +18,10 @@
             <div class="mb-3">
               <%= form.label :link, class: 'col-form-label' %>
               <%= form.text_field :link,  class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :skill_level_item, class: 'col-form-label' %>
+              <%= form.select :skill_level_item_id, SkillLevelItem.fetch_for_current_skill(skill_level.skill.id).collect { |s_l_i| [s_l_i.name, s_l_i.id] }, { include_blank: "Please Select" } ,  class: 'form-select' %>
             </div>
         </div>
         <div class="modal-footer">

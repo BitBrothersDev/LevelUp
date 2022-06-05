@@ -70,6 +70,6 @@ class LearningMaterialsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def learning_material_params
-      params.require(:learning_material).permit(:material_type, :name, :link, :learnable_id, :learnable_id)
+      params.require(:learning_material).permit(:material_type, :name, :link, :learnable_id, :learnable_id, :skill_level_item_id)
     end
 end

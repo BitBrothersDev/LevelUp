@@ -45,21 +45,42 @@
           </div>
         </div>
         <div class="bg-purple rounded p-3">
-            <% skill_level.skill_level_items.each_with_index  do |skill_level_item, i| %>
-                <div class="bg-white my-2 rounded px-3 py-1">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <div class="text-black fw-normal "><%= skill_level_item.name %></div>
-                      <small style='font-size:10px'><%= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip' %></small>
-                    </div>
+          <% skill_level.skill_level_items.each_with_index  do |skill_level_item, i| %>
+            <div class="w-100 bg-white my-2 rounded px-3 py-1" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-learning-material-<%= skill_level_item.id %>">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <div class="text-black fw-normal "><%= skill_level_item.name %></div>
+                    <small style='font-size:10px'><%= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip' %></small>
+                  </div>
 
-                    <div class="ms-auto">
-                      <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-add_skill_level_item-<%= skill_level.id %>-<%= skill_level_item.id %>">Edit</div>
-                    </div>
+                  <div class="ms-auto">
+                    <div class="btn btn-outline-primary" type="button"data-bs-toggle="modal" data-bs-target="#modal-add_skill_level_item-<%= skill_level.id %>-<%= skill_level_item.id %>">Edit</div>
                   </div>
                 </div>
-              <%= render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item  %>
-            <% end %>
+              </div>
+            <div class="collapse" id="collapse-learning-material-<%= skill_level_item.id %>">
+              <div class="row">
+                <% skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material| %>
+
+                  <div class="col-md-6">
+                    <div class="border d-flex align-items-center p-3 my-2 text-white-50 bg-purple rounded shadow-sm">
+
+                      <div class="lh-1">
+                        <h1 class="h6 mb-0 text-white lh-1"><%= material.name %></h1>
+                        <small><%= material.material_type %></small>
+                      </div>
+                      <div class="ms-auto">
+                        <%= link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5' %>
+
+                        <div class="btn btn-link text-white-50 fs-5" type="button" data-bs-toggle="modal" data-bs-target="#modal-add-material-<%= skill_level.id %>-<%= material.id %>">Edit</div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <%= render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item  %>
+          <% end %>
         </div>
 
         <%= skill_level.notice %>
