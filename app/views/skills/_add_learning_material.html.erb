@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
               <%= form.label :skill_level_item, class: 'col-form-label' %>
-              <%= form.select :skill_level_item_id, SkillLevelItem.fetch_for_current_skill(skill_level.skill.id).collect { |s_l_i| [s_l_i.name, s_l_i.id] }, { include_blank: "Please Select" } ,  class: 'form-select' %>
+              <%= form.select :skill_level_item_id, SkillLevelItem.fetch_for_current_skill(skill_level.id).collect { |s_l_i| [s_l_i.name, s_l_i.id] }, { include_blank: "Please Select" } ,  class: 'form-select' %>
             </div>
         </div>
         <div class="modal-footer">

@@ -20,15 +20,15 @@
 </div>
 
 <div class="my-5 p-3 bg-white rounded shadow-sm">
-  <h6 class="d-flex border-bottom border-gray pb-2 mb-0">
-    <ul class="nav nav-pills" id="myTab" role="tablist">
-      <% @skill.skill_levels.each_with_index  do |skill_level, i| %>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link <%= i.zero? ? 'active' : '' %>" id="<%= [skill_level.level.title, skill_level.id].join("-") %>" data-bs-toggle="tab" data-bs-target="#<%= [skill_level.level.title, skill_level.id, 'tab-id'].join("-") %>" type="button" role="tab" aria-controls="home" aria-selected="true"><%= skill_level.level.title %></button>
-        </li>
-      <% end %>
-    </ul>
-  </h6>
+<!--  <h6 class="d-flex border-bottom border-gray pb-2 mb-0">-->
+<!--    <ul class="nav nav-pills" id="myTab" role="tablist">-->
+      <%# @skill.skill_levels.each_with_index  do |skill_level, i| %>
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button class="nav-link <%#= i.zero? ? 'active' : '' %>" id="<%#= [skill_level.level.title, skill_level.id].join("-") %>" data-bs-toggle="tab" data-bs-target="#<%#= [skill_level.level.title, skill_level.id, 'tab-id'].join("-") %>" type="button" role="tab" aria-controls="home" aria-selected="true"><%#= skill_level.level.title %></button>-->
+<!--        </li>-->
+      <%# end %>
+<!--    </ul>-->
+<!--  </h6>-->
   <div>
 <!--  <div class="tab-content" id="myTabContent">-->
     <% @skill.skill_levels.each_with_index  do |skill_level, i| %>
