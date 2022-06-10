@@ -4,7 +4,7 @@ class Skill < ApplicationRecord
   belongs_to :skill_category
 
   scope :group_for_show, -> do
-    a = all.group_by do |skill|
+    a = all.order("created_at ASC").group_by do |skill|
       skill.skill_category&.parent_category&.name
     end
     a.map do |parent_skill, skill_array|

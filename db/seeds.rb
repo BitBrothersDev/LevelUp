@@ -34,3 +34,37 @@
 # MaterialContainer.create!([
 #   {job_function_id: 1, level_id: 1}
 # ])
+
+["Engineering Management 1Process planning >Estimation >Requirements > ",
+ "Design 1OOD >DB design >Algorithms > ",
+ "Core 1Ruby Language >Security >Tools and Gems >Refactoring >Networking > ",
+ "Web Back-End 1Ruby On Rails > ",
+ "Web Front-End 1Web UI, JavaScript, HTML, CSS > Web UI, Libraries and Frameworks >",
+ "DB 1SQL >DB Access >MySQL >NoSQL > ",
+ "Web Back-End 1Cloud-based Deployment Services >Web and Application Servers > ",
+ "Verification 1Code quality >Automation Testing >RSpec and Testing Libraries > ",
+ "Configuration Management 1Managing versions >Continuous Integration >Product builds and Continuous Integration >Managing versions >"]
+
+# z = a.split('>')
+# z.last.gsub("\nsource", "")
+# def create_items(string, skill_level_id)
+#   skill_level = SkillLevel.find(skill_level_id)
+#   items_array = string.gsub("\n", "").gsub(";", "").split("•").reject(&:blank?).map { |e| e.drop(1)}
+#   items_array.each do |item|
+#     skill_level.skill_level_items.create(name: item)
+#   end
+# end
+# a.gsub("\nsource", " ").gsub("source", " ").gsub("\n", " ")
+#
+# def create_skills(string)
+#   category_name = string.split("1").first
+#   skills = string.split("1").last
+#   skill_category = SkillCategory.find_or_create_by(name: category_name)
+#   skills.split(">").reject(&:blank?).each do |skill_name|
+#     skill = skill_category.skills.find_or_create_by(name: skill_name)
+#     skill.level_ids = Level.where(name: ['A1', "A2", "A3"]).pluck(:id)
+#   end
+# end
+# a.each do |string|
+#   create_skills(string)
+# end
