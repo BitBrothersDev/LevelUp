@@ -1,5 +1,4 @@
 class EstimationSkillsController < ApplicationController
-  before_action :authenticate_user!, only: %i[ create ]
   before_action :set_estimation_skill, only: %i[ show edit update destroy ]
   before_action :find_skill, only: %i[ create ]
   # GET /estimation_skills or /estimation_skills.json

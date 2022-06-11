@@ -1,0 +1,1 @@
+json.partial! "estimation_skill_level_items/estimation_skill_level_item", estimation_skill_level_item: @estimation_skill_level_item

@@ -45,7 +45,8 @@
                 %div
                   .text-black.fw-normal= skill_level_item.name
                   %small{:style => "font-size:10px"}= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip'
-                .ms-auto
+                .ms-auto.d-flex
+                  = render 'skills/estimation_skill_level_item', skill_level_item: skill_level_item
                   .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-#{skill_level_item.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
             .collapse{:id => "collapse-learning-material-#{skill_level_item.id}"}
               - skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item)

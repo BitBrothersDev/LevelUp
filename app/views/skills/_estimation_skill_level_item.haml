@@ -1,0 +1,8 @@
+- if user_signed_in?
+
+  - estimation_skill_level_item = skill_level_item.estimation_skill_level_items.find_by_user_id(current_user&.id)&.level || 0
+  .estimation.d-flex.align-items-center{id: "estimation-item-container-#{skill_level_item.id}", data: { index: skill_level_item.id } }
+    - skill_level_item.skill.skill_levels.each_with_index do |l, index|
+      .estimation-level{onclick: 'updateEstimationItem(this)', class: index + 1 <= estimation_skill_level_item ? 'active' : '', data: { index: "#{skill_level_item.id}-#{index + 1}" } }
+    .px-2.pe-auto
+      %button.btn.btn-link.reset_estimation_item_link{onclick: 'resetEstimationItem(this)', data: { index: skill_level_item.id }} reset

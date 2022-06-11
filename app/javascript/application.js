@@ -81,6 +81,44 @@ window.resetEstimation = function resetEstimation(e) {
         }
     })
 }
+
+
+
+
+window.updateEstimationItem = function qwer(e) {
+    const skill_id = e.getAttribute("data-index");
+    const data = skill_id.split("-")
+    Rails.ajax({
+        type: "POST",
+        url: `/skill_level_items/${data[0]}/estimation_skill_level_items`,
+        data: `estimation=${data[1]}`,
+        async: false,
+        success: function(data2){
+            console.log(skill_id)
+            debugger
+            let old_code = this.parentElement
+            this.parentElement.innerHTML = data2
+        }.bind(e),
+        error: function(data2){
+        }
+    })
+
+}
+
+window.resetEstimationItem = function resetEstimation(e) {
+    let skill_id = event.target.getAttribute("data-index");
+    Rails.ajax({
+        type: "POST",
+        url: `/skill_level_items/${skill_id}/estimation_skill_level_items`,
+        data: `estimation=0`,
+        success: function(data2){
+            let old_code = this.parentElement.parentElement
+            old_code.innerHTML = data2
+        }.bind(e),
+        error: function(data){
+        }
+    })
+}
 // function asdf() {
 //     const skill_id = event.target.getAttribute("data-index");
 //     const data = skill_id.split("-")

@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :estimation_skills
+  has_many :estimation_skill_level_items
 end
