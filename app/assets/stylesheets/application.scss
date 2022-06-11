@@ -20,3 +20,32 @@ body {
 .bg-purple {
   background-color: #6f42c1;
 }
+
+.estimation {
+  width: 100px;
+  //background: red;
+  display: flex;
+  align-items: center;
+}
+.estimation > .estimation-level {
+  align-items: center;
+  height: 18px;
+  width: 12px;
+  padding: 5px;
+  margin: 0 2px 0 0;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  border: 1px solid grey;
+  //background-color: #67a300;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    border: 1px solid #67a300;
+  }
+}
+.estimation > .active {
+  background-color: #67a300;
+}

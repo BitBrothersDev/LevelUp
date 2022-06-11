@@ -18,6 +18,7 @@
       %th{:scope => "col"} Main Skill Category
       %th{:scope => "col"} Skill Category
       %th{:scope => "col"} Skill Name
+      %th{:scope => "col"} Estimation
   %tbody
     - @skills.each do |hash_parent_categories|
       - hash_parent_categories.each do |parent_category, skill_category_arr|
@@ -26,14 +27,17 @@
             .btn.btn-danger= parent_category
           %td
           %td
+          %td
         - skill_category_arr.each do |skill_category, skill_arr|
           %tr
             %td
             %td
               .btn.btn-primary= skill_category
             %td
+            %td
           - skill_arr.each do |skill|
             %tr
               %td
               %td
               %td= link_to skill.name , skill
+              %td= render 'skills/skill_estimation', skill: skill

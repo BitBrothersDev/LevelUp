@@ -1,6 +1,7 @@
 class Skill < ApplicationRecord
   has_many :skill_levels, :dependent => :delete_all
   has_many :levels, through: :skill_levels
+  has_many :estimation_skills
   belongs_to :skill_category
 
   scope :group_for_show, -> do

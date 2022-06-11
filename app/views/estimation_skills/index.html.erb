@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Estimation skills</h1>
+
+<div id="estimation_skills">
+  <% @estimation_skills.each do |estimation_skill| %>
+    <%= render estimation_skill %>
+    <p>
+      <%= link_to "Show this estimation skill", estimation_skill %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New estimation skill", new_estimation_skill_path %>
