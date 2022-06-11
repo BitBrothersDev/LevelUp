@@ -1,0 +1,31 @@
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  .container-fluid
+    = link_to "LevelUp", root_path, class: 'navbar-brand'
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+        %li.nav-item
+          = link_to 'Learning materials', learning_materials_path, class: "nav-link #{is_active('learning_materials')}"
+        %li.nav-item
+          = link_to 'JobFunctions', job_functions_path, class: "nav-link #{is_active('job_functions')}"
+        %li.nav-item
+          = link_to 'Skills', skills_path, class: "nav-link #{is_active('skills')}"
+        %li.nav-item
+          = link_to 'SkillLevels', skill_levels_path, class: "nav-link #{is_active('skill_levels')}"
+        %li.nav-item
+          = link_to 'SkillCategories', skill_categories_path, class: "nav-link #{is_active('skill_categories')}"
+        %li.nav-item
+          = link_to 'Levels', levels_path, class: "nav-link #{is_active('levels')}"
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
+            Managing
+          %ul.dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            %li= link_to 'Learning materials', learning_materials_path, class: 'dropdown-item'
+            %li= link_to 'JobFunctions', job_functions_path, class: 'dropdown-item'
+            %li= link_to 'Skills', skills_path, class: 'dropdown-item'
+            %li= link_to 'SkillLevels', skill_levels_path, class: 'dropdown-item'
+            %li= link_to 'SkillCategories', skill_categories_path, class: 'dropdown-item'
+            %li= link_to 'Levels', levels_path, class: 'dropdown-item'
+            %li= link_to 'MaterialContainer', material_containers_path, class: 'dropdown-item'
+      %form.d-flex

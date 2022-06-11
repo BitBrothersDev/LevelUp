@@ -1,0 +1,8 @@
+%p{:style => "color: green"}= notice
+= render @material_container
+%div
+  = link_to "Edit this material container", edit_material_container_path(@material_container)
+  |
+  \#{link_to "Back to material containers", material_containers_path}
+  
+  \#{button_to "Destroy this material container", @material_container, method: :delete}

@@ -1,0 +1,15 @@
+%div{:id => "#{dom_id skill_category}"}
+  %p
+    %strong Name:
+    = skill_category.name
+  %p
+    %strong Parent category:
+    = skill_category.parent_category&.name
+  %p
+    %strong Children category:
+    - skill_category.children.each do |children|
+      %br/
+      %strong Name:
+      = children.name
+      %strong Parent category:
+      = children.parent_category&.name

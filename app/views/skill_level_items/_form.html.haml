@@ -1,0 +1,20 @@
+= form_with(model: skill_level_item) do |form|
+  - if skill_level_item.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(skill_level_item.errors.count, "error")
+        prohibited this skill_level_item from being saved:
+      %ul
+        - skill_level_item.errors.each do |error|
+          %li= error.full_message
+  %div
+    = form.label :name, style: "display: block"
+    = form.text_field :name
+  %div
+    = form.label :tip, style: "display: block"
+    = form.text_field :tip
+  %div
+    = form.label :skill_level_id, style: "display: block"
+    = form.text_field :skill_level_id
+  %div
+    = form.submit

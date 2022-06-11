@@ -1,0 +1,7 @@
+%h1 Editing material container
+= render "form", material_container: @material_container
+%br/
+%div
+  = link_to "Show this material container", @material_container
+  |
+  \#{link_to "Back to material containers", material_containers_path}

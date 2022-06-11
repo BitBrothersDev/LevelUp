@@ -1,0 +1,14 @@
+.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :id => "modal-edit_skill_level-#{skill_level.id}", :tabindex => "-1"}
+  .modal-dialog.modal-xl
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Modal title
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", :type => "button"}
+      = form_with(model: skill_level) do |form|
+        .modal-body
+          .mb-3
+            = form.label :notice, style: "col-form-label"
+            = form.rich_text_area :notice,  class: 'form-control'
+        .modal-footer
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", :type => "button"} Close
+          = button_tag "Save", class: 'btn btn-primary'

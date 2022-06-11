@@ -1,0 +1,80 @@
+%p{:style => "color: green"}= notice
+.d-flex.justify-content-between
+  %span= link_to "<- Back to skills", skills_path, class: 'btn btn-link'
+  %span= link_to "Edit this skill", edit_skill_path(@skill), class: 'btn btn-link'
+.d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.shadow-sm
+  .col-6
+    %h6.mb-0.text-white.lh-100.fs-4= "#{@skill.name}#{@skill.skill_category&.name ? " (#{@skill.skill_category&.name})" : nil}"
+  .d-flex.justify-content-end.ms-auto
+    %span= button_to "Destroy this skill", @skill, method: :delete, class: 'btn btn-danger'
+  / <small>Since 2011</small>
+.my-5.p-3.bg-white.rounded.shadow-sm
+  %h6.border-bottom.border-gray.pb-2.mb-0
+    %b Skill description
+  %p
+    = @skill.description
+.my-5.p-3.bg-white.rounded.shadow-sm
+  / <h6 class="d-flex border-bottom border-gray pb-2 mb-0">
+  / <ul class="nav nav-pills" id="myTab" role="tablist">
+  / <li class="nav-item" role="presentation">
+  / <button class="nav-link <haml_silent></haml_silent>" id="<haml_silent></haml_silent>" data-bs-toggle="tab" data-bs-target="#<haml_silent></haml_silent>" type="button" role="tab" aria-controls="home" aria-selected="true"><haml_silent></haml_silent></button>
+  / </li>
+  / </ul>
+  / </h6>
+  %div
+    / <div class="tab-content" id="myTabContent">
+    - @skill.skill_levels.each_with_index  do |skill_level, i|
+      = render 'skills/skill_level_form', skill_level: skill_level
+      = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: SkillLevelItem.new
+      = render 'skills/add_learning_material', skill_level: skill_level, learning_material: LearningMaterial.new
+      %div{"aria-labelledby" => "#{[skill_level.level.title, skill_level.id].join("-")}", :class => "tab-pane fade show #{i.zero? ? 'active' : ''}", :id => "#{[skill_level.level.title, skill_level.id, 'tab-id'].join("-")}", :role => "tabpanel"}
+        .d-flex.justify-content-between.align-items-center
+          .mt-4.mb-2.fs-5
+            %b
+              What you should know (#{skill_level.level.title})
+          .ms-auto
+            .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-", "data-bs-toggle" => "modal", :type => "button"} Add Item
+            .btn.btn-outline-primary{"data-bs-target" => "#modal-edit_skill_level-#{skill_level.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
+        .bg-purple.rounded.p-3
+          - skill_level.skill_level_items.each_with_index  do |skill_level_item, i|
+            .w-100.bg-white.my-2.rounded.px-3.py-1{"data-bs-target" => "#collapse-learning-material-#{skill_level_item.id}", "data-bs-toggle" => "collapse", :role => "button"}
+              .d-flex.align-items-center
+                %div
+                  .text-black.fw-normal= skill_level_item.name
+                  %small{:style => "font-size:10px"}= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip'
+                .ms-auto
+                  .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-#{skill_level_item.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
+            .collapse{:id => "collapse-learning-material-#{skill_level_item.id}"}
+              - skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item)
+              - if skill_learning_materials.any?
+                .row
+                  - skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material|
+                    .col-md-6
+                      .border.d-flex.align-items-center.p-3.my-2.text-white-50.bg-purple.rounded.shadow-sm
+                        .lh-1
+                          %h1.h6.mb-0.text-white.lh-1= material.name
+                          %small= material.material_type
+                        .ms-auto
+                          = link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5'
+                          .btn.btn-link.text-white-50.fs-5{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{material.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
+              - else
+                .justify-content-center.d-flex.align-items-center.text-white
+                  There is not any materials
+                  .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+            = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item
+        = skill_level.notice
+        .d-flex.justify-content-between.align-items-center.my-2
+          %h6
+            %b Learning materials
+          .btn.btn-outline-primary{"data-bs-target" => "#modal-add-material-#{skill_level.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+        .row
+          - skill_level.learning_materials.each do |material|
+            .col-md-6
+              .d-flex.align-items-center.p-3.my-2.text-white-50.bg-purple.rounded.shadow-sm
+                .lh-1
+                  %h1.h6.mb-0.text-white.lh-1= material.name
+                  %small= material.material_type
+                .ms-auto
+                  = link_to '-> Visit Link', material.link, class: 'btn btn-link text-white-50 fs-5'
+                  = render 'skills/add_learning_material', skill_level: skill_level, learning_material: material
+                  .btn.btn-link.text-white-50.fs-5{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{material.id}", "data-bs-toggle" => "modal", :type => "button"} Edit

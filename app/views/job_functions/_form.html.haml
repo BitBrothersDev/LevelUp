@@ -1,0 +1,14 @@
+= form_with(model: job_function) do |form|
+  - if job_function.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(job_function.errors.count, "error")
+        prohibited this job_function from being saved:
+      %ul
+        - job_function.errors.each do |error|
+          %li= error.full_message
+  %div
+    = form.label :title, style: "display: block"
+    = form.text_field :title
+  %div
+    = form.submit

@@ -1,0 +1,17 @@
+= form_with(model: material_container) do |form|
+  - if material_container.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(material_container.errors.count, "error")
+        prohibited this material_container from being saved:
+      %ul
+        - material_container.errors.each do |error|
+          %li= error.full_message
+  %div
+    = form.label :job_function_id, style: "display: block"
+    = form.select :job_function_id, JobFunction.all.collect { |j_f| [j_f.title, j_f.id]}
+  %div
+    = form.label :level_id, style: "display: block"
+    = form.select :level_id, Level.all.collect { |l| [l.name, l.id]}
+  %div
+    = form.submit

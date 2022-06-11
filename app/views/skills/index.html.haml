@@ -1,0 +1,39 @@
+%p{:style => "color: green"}= notice
+.d-flex.align-items-center
+  %h1 Skills
+  .ms-auto
+    %b= link_to "Add new skill", new_skill_path, class: 'btn btn-link'
+#skills
+  / <div class="row mb-2 d-flex justify-content-around">
+  - @skills.each do |skill|
+    / <div class="col-md-4">
+    / <div class="d-flex align-items-center p-4 my-3 text-white-50 bg-purple rounded shadow-sm">
+    / <h6 class="mb-0 text-white lh-100 "><haml_silent></haml_silent></h6>
+    / </div>
+    / </div>
+  / </div>
+%table.table
+  %thead
+    %tr
+      %th{:scope => "col"} Main Skill Category
+      %th{:scope => "col"} Skill Category
+      %th{:scope => "col"} Skill Name
+  %tbody
+    - @skills.each do |hash_parent_categories|
+      - hash_parent_categories.each do |parent_category, skill_category_arr|
+        %tr
+          %td
+            .btn.btn-danger= parent_category
+          %td
+          %td
+        - skill_category_arr.each do |skill_category, skill_arr|
+          %tr
+            %td
+            %td
+              .btn.btn-primary= skill_category
+            %td
+          - skill_arr.each do |skill|
+            %tr
+              %td
+              %td
+              %td= link_to skill.name , skill

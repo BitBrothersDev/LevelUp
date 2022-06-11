@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :skill_level_items
   resources :skill_categories
   resources :learning_materials

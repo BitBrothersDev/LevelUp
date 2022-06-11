@@ -1,0 +1,8 @@
+%p{:style => "color: green"}= notice
+%h1 Job functions
+#job_functions
+  - @job_functions.each do |job_function|
+    = render job_function
+    %p
+      = link_to "Show this job function", job_function
+= link_to "New job function", new_job_function_path

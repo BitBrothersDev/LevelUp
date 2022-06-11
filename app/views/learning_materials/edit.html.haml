@@ -1,0 +1,7 @@
+%h1 Editing learning material
+= render "form", learning_material: @learning_material
+%br/
+%div
+  = link_to "Show this learning material", @learning_material
+  |
+  \#{link_to "Back to learning materials", learning_materials_path}

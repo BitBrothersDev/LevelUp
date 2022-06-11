@@ -1,0 +1,7 @@
+%h1 Editing job function
+= render "form", job_function: @job_function
+%br/
+%div
+  = link_to "Show this job function", @job_function
+  |
+  \#{link_to "Back to job functions", job_functions_path}
