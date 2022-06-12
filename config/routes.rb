@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :skill_level_items
   resources :skill_categories
-  resources :learning_materials
+  resources :learning_materials do
+    resources :complete_materials
+  end
   resources :skill_levels do
     resources :skill_level_items
     resources :learning_materials

@@ -101,3 +101,15 @@ window.resetEstimation = function resetEstimation(e) {
 // document.addEventListener("DOMContentLoaded", function(event) {
 //     console.log("DOM fully loaded and parsed");
 // });
+
+window.updateCompleteMaterial = function updateCompleteMaterial() {
+    let materialId = event.target.getAttribute("data-material-id");
+
+    Rails.ajax({
+        type: "POST",
+        url: `/learning_materials/${materialId}/complete_materials`,
+        data: `is_completed=${event.target.checked}`,
+        success: {},
+        error: {}
+    })
+}
