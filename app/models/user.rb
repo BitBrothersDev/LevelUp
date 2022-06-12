@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :estimation_skills
   has_many :complete_materials
+  has_many :estimation_skill_level_items
 end

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  resources :estimation_skill_level_items
   devise_for :users
-  resources :skill_level_items
+  resources :skill_level_items do
+    resources :estimation_skill_level_items
+  end
   resources :skill_categories
   resources :learning_materials do
     resources :complete_materials

@@ -1,0 +1,32 @@
+<%= form_with(model: estimation_skill_level_item) do |form| %>
+  <% if estimation_skill_level_item.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(estimation_skill_level_item.errors.count, "error") %> prohibited this estimation_skill_level_item from being saved:</h2>
+
+      <ul>
+        <% estimation_skill_level_item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :level, style: "display: block" %>
+    <%= form.text_field :level %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :skill_id, style: "display: block" %>
+    <%= form.text_field :skill_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
