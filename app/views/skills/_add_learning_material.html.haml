@@ -1,4 +1,6 @@
-.modal.fade.text-black{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :id => "modal-add-material-#{skill_level.id}-#{learning_material.id}", :tabindex => "-1"}
+- learning_material = learning_material.nil? ? LearningMaterial.new :  learning_material
+- skill_level_item = skill_level_item.nil? ? (learning_material.skill_level_item ? learning_material.skill_level_item : nil) : skill_level_item
+.modal.fade.text-black{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :id => "modal-add-material-#{skill_level.id}-#{skill_level_item&.id}-#{learning_material.id}", :tabindex => "-1"}
   .modal-dialog.modal-dialog-centered.modal-dialog-scrollable
     .modal-content
       .modal-header
@@ -17,7 +19,7 @@
             = form.text_field :link,  class: 'form-control'
           .mb-3
             = form.label :skill_level_item, class: 'col-form-label'
-            = form.select :skill_level_item_id, SkillLevelItem.fetch_for_current_skill(skill_level.id).collect { |s_l_i| [s_l_i.name, s_l_i.id] }, { include_blank: "Please Select" } ,  class: 'form-select'
+            = form.select :skill_level_item_id, SkillLevelItem.fetch_for_current_skill(skill_level.id).collect { |s_l_i| [s_l_i.name, s_l_i.id] }, { include_blank: "Please Select", selected: (skill_level_item ? skill_level_item.id : nil) } ,  class: 'form-select'
         .modal-footer
           %button.btn.btn-secondary{"data-bs-dismiss" => "modal", :type => "button"} Close
           = button_tag "Save", class: 'btn btn-primary'
