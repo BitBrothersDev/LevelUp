@@ -31,19 +31,19 @@ class SkillLevelItemsController < ApplicationController
     # items_array.each do |item|
     #   @skill_level.skill_level_items.find_or_create_by(name: item)
     # end
-    # respond_to do |format|
-    #   if @skill_level_item.save
-    #     format.html { redirect_to @skill_level.skill, notice: "Skill level item was successfully created." }
-    #     format.json { render :show, status: :created, location: @skill_level.skill }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @skill_level_item.errors, status: :unprocessable_entity }
-    #   end
-    # end
     respond_to do |format|
-      format.html { redirect_to @skill_level.skill, notice: "Skill level item was successfully created." }
-      format.json { render :show, status: :created, location: @skill_level.skill }
+      if @skill_level_item.save
+        format.html { redirect_to @skill_level.skill, notice: "Skill level item was successfully created." }
+        format.json { render :show, status: :created, location: @skill_level.skill }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @skill_level_item.errors, status: :unprocessable_entity }
+      end
     end
+    # respond_to do |format|
+    #   format.html { redirect_to @skill_level.skill, notice: "Skill level item was successfully created." }
+    #   format.json { render :show, status: :created, location: @skill_level.skill }
+    # end
   end
 
   # PATCH/PUT /skill_level_items/1 or /skill_level_items/1.json
