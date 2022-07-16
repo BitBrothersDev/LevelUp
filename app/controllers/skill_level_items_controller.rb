@@ -23,14 +23,14 @@ class SkillLevelItemsController < ApplicationController
   # POST /skill_level_items or /skill_level_items.json
   def create
     # binding.pry
-    # @skill_level_item = @skill_level.skill_level_items.new(skill_level_item_params)
-    items = params[:items_data].gsub("\n", "").gsub(";", "").split("•")
-    @skill_level.update(notice: items.first)
-    items.shift
-    items_array = items.reject(&:blank?).map { |e| e.gsub(/^./, "")}
-    items_array.each do |item|
-      @skill_level.skill_level_items.find_or_create_by(name: item)
-    end
+    @skill_level_item = @skill_level.skill_level_items.new(skill_level_item_params)
+    # items = params[:items_data].gsub("\n", "").gsub(";", "").split("•")
+    # @skill_level.update(notice: items.first)
+    # items.shift
+    # items_array = items.reject(&:blank?).map { |e| e.gsub(/^./, "")}
+    # items_array.each do |item|
+    #   @skill_level.skill_level_items.find_or_create_by(name: item)
+    # end
     # respond_to do |format|
     #   if @skill_level_item.save
     #     format.html { redirect_to @skill_level.skill, notice: "Skill level item was successfully created." }
