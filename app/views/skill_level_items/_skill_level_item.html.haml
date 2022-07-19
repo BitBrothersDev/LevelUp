@@ -1,10 +1,33 @@
+- skill_level = skill_level_item.skill_level
 %div{:id => "#{dom_id skill_level_item}"}
-  %p
-    %strong Name:
-    = skill_level_item.name
-  %p
-    %strong Tip:
-    = skill_level_item.tip
-  %p
-    %strong Skill level:
-    = skill_level_item.skill_level_id
+  .w-100.bg-white.my-2.rounded.px-3.py-1{"data-bs-target" => "#collapse-learning-material-#{skill_level_item.id}", "data-bs-toggle" => "collapse", :role => "button"}
+    .d-flex.align-items-center
+      %div
+        .text-black.fw-normal= skill_level_item.name
+        %small{:style => "font-size:10px"}= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip'
+      .ms-auto.d-flex.align-items-center
+        = render 'skills/estimation_skill_level_item', skill_level_item: skill_level_item
+        %span.mx-4
+          = skill_level_item.learning_materials.count
+        .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-#{skill_level_item.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
+  .collapse{:id => "collapse-learning-material-#{skill_level_item.id}"}
+    - skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item)
+    - if skill_learning_materials.any?
+      .row
+        - skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material|
+          = render 'skills/learning_materials/material', material: material, skill_level: skill_level
+          = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
+        - if skill_learning_materials.size.even?
+          .justify-content-center.d-flex.align-items-center.text-white
+            Add more materials
+            .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+        - else
+          .col-md-6
+            .border.d-flex.align-items-center.p-3.my-2.text-white-50.bg-purple.rounded.shadow-sm.learn_item
+              .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+    - else
+      = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
+      .justify-content-center.d-flex.align-items-center.text-white
+        There is not any materials
+        .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+  = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item

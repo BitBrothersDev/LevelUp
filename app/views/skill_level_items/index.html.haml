@@ -1,8 +1,9 @@
 %p{:style => "color: green"}= notice
 %h1 Skill level items
-#skill_level_items
-  - @skill_level_items.each do |skill_level_item|
-    = render skill_level_item
-    %p
-      = link_to "Show this skill level item", skill_level_item
-= link_to "New skill level item", new_skill_level_item_path
+.bg-purple.m-2.p-3
+  #skill_level_items
+    - @skill_level_items.each do |skill_level_item|
+      = render skill_level_item
+      %p
+        -# = link_to "Show this skill level item", skill_level_item
+  = link_to "New skill level item", new_skill_level_item_path, class: 'btn btn-outline-warning'

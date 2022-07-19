@@ -26,7 +26,7 @@ class LearningMaterialsController < ApplicationController
 
     respond_to do |format|
       if @learning_material.save
-        format.html { redirect_to @skill_level.skill, notice: "Learning material was successfully created." }
+        format.html { redirect_back(fallback_location: @skill_level.skill, notice: "Learning material was successfully created.") }
         format.json { render :show, status: :created, location: @skill_level.skill }
       else
         format.html { render :new, status: :unprocessable_entity }
