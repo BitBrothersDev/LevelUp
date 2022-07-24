@@ -1,9 +1,18 @@
+- levels = Level.all
+- level_title_params = params[:level_title]
 %p{:style => "color: green"}= notice
 %h1 Skill level items
-.bg-purple.m-2.p-3
+.bg-purple.m-2.p-3.rounded
+  .my-5.p-3.bg-white.rounded.shadow-sm
+    %h6.d-flex.border-bottom.border-gray.pb-2.mb-0
+      %ul#myTab.nav.nav-pills{:role => "tablist"}
+        - levels.each_with_index do |level, i|
+          - link_class = level_title_params == level.title ? 'active' : ''
+          %li.nav-item{:role => "presentation"}
+            = link_to level.title, skill_level_items_path(level_title: level.title), :class => "nav-link #{link_class}"
   #skill_level_items
     - @skill_level_items.each do |skill_level_item|
       = render skill_level_item
-      %p
+  -#    %p
         -# = link_to "Show this skill level item", skill_level_item
   = link_to "New skill level item", new_skill_level_item_path, class: 'btn btn-outline-warning'
