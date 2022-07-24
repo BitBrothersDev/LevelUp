@@ -4,7 +4,7 @@ class SkillLevelItemsController < ApplicationController
 
   # GET /skill_level_items or /skill_level_items.json
   def index
-    @skill_level_items = SkillLevelItem.all.includes(:learning_materials).sort_by { |item| item.learning_materials.count }
+    @skill_level_items = SkillLevelItem.materials
   end
 
   # GET /skill_level_items/1 or /skill_level_items/1.json
