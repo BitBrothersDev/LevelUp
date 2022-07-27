@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
-  create_table "action_text_rich_texts", charset: "utf8mb4", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2022_07_24_173310) do
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
-  create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -43,13 +43,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "complete_materials", charset: "utf8mb4", force: :cascade do |t|
+  create_table "complete_materials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "learning_material_id", null: false
     t.boolean "is_completed"
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["user_id"], name: "index_complete_materials_on_user_id"
   end
 
-  create_table "estimation_skill_level_items", charset: "utf8mb4", force: :cascade do |t|
+  create_table "estimation_skill_level_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.float "level"
     t.bigint "user_id", null: false
     t.bigint "skill_level_item_id", null: false
@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["user_id"], name: "index_estimation_skill_level_items_on_user_id"
   end
 
-  create_table "estimation_skills", charset: "utf8mb4", force: :cascade do |t|
+  create_table "estimation_skills", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.float "level"
     t.bigint "user_id", null: false
     t.bigint "skill_id", null: false
@@ -79,13 +79,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["user_id"], name: "index_estimation_skills_on_user_id"
   end
 
-  create_table "job_functions", charset: "utf8mb4", force: :cascade do |t|
+  create_table "job_functions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "learning_materials", charset: "utf8mb4", force: :cascade do |t|
+  create_table "learning_materials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "material_type"
     t.string "name"
     t.string "link"
@@ -97,14 +97,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["skill_level_item_id"], name: "index_learning_materials_on_skill_level_item_id"
   end
 
-  create_table "levels", charset: "utf8mb4", force: :cascade do |t|
+  create_table "levels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
   end
 
-  create_table "material_containers", charset: "utf8mb4", force: :cascade do |t|
+  create_table "material_containers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "job_function_id", null: false
     t.bigint "level_id", null: false
     t.datetime "created_at", null: false
@@ -113,14 +113,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["level_id"], name: "index_material_containers_on_level_id"
   end
 
-  create_table "skill_categories", charset: "utf8mb4", force: :cascade do |t|
+  create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "body"
+    t.string "questionable_type", null: false
+    t.bigint "questionable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionable_type", "questionable_id"], name: "index_questions_on_questionable"
+  end
+
+  create_table "skill_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "parent_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "skill_level_items", charset: "utf8mb4", force: :cascade do |t|
+  create_table "skill_level_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "name"
     t.string "tip"
     t.bigint "skill_level_id", null: false
@@ -129,7 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["skill_level_id"], name: "index_skill_level_items_on_skill_level_id"
   end
 
-  create_table "skill_levels", charset: "utf8mb4", force: :cascade do |t|
+  create_table "skill_levels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "skill_id", null: false
     t.bigint "level_id", null: false
     t.string "notice"
@@ -139,7 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["skill_id"], name: "index_skill_levels_on_skill_id"
   end
 
-  create_table "skills", charset: "utf8mb4", force: :cascade do |t|
+  create_table "skills", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -148,7 +157,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_154701) do
     t.index ["skill_category_id"], name: "index_skills_on_skill_category_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

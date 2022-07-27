@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :skill_level_items do
     resources :estimation_skill_level_items
+    resources :questions
   end
   resources :skill_categories
   resources :learning_materials do
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   end
   resources :levels
   resources :job_functions
+  resources :questions
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

@@ -1,0 +1,11 @@
+:ruby
+  questionable = locals[:questionable]
+
+%div
+  = "Questions"
+  - questionable.questions.each do |question|
+    %div
+      .comment
+        = question.body
+      = link_to 'Edit', [:edit, questionable, question], class: "btn btn-outline-primary btn-sm"
+      = link_to 'Delete', [questionable, question], method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-outline-danger btn-sm"
