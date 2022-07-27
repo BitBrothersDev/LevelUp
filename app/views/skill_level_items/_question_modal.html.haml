@@ -1,0 +1,17 @@
+- action = question.persisted? ? 'Edit question' : 'New question'
+- submit_action = question.persisted? ? 'Update' : 'Save'
+
+.modal.fade{"aria-hidden": "true", "aria-labelledby": "questionModalLabel", id: "questionModal-#{question.id}", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#questionModalLabel.modal-title= action
+        %button.btn-close{"aria-label": "Close", "data-bs-dismiss": "modal", type: "button"}
+      = form_for [questionable, question] do |form|
+        .modal-body
+          .mb-3
+            = form.label :body, class: 'col-form-label'
+            = form.text_field :body, class: 'form-control', placeholder: 'Add a question...'
+        .modal-footer
+          %button.btn.btn-outline-secondary{"data-bs-dismiss": "modal", type: "button"} Cancel
+          = button_tag submit_action, class: 'btn btn-primary'

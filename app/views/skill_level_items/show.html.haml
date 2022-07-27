@@ -1,8 +1,17 @@
+- question = Question.new
+
 %p{:style => "color: green"}= notice
 = render @skill_level_item
+%br
+%div
+  = render 'skill_level_items/questions', questionable: @skill_level_item
+  %br
+  %button.btn.btn-primary{"data-bs-target": "#questionModal-", "data-bs-toggle": "modal", type: "button"} Add question
+  = render 'skill_level_items/question_modal', questionable: @skill_level_item, question: question
+%br
 %div
   = link_to "Edit this skill level item", edit_skill_level_item_path(@skill_level_item)
   |
   \#{link_to "Back to skill level items", skill_level_items_path}
-  
+
   \#{button_to "Destroy this skill level item", @skill_level_item, method: :delete}

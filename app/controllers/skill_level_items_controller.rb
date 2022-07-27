@@ -76,17 +76,17 @@ class SkillLevelItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def find_skill_level
-      @skill_level = SkillLevel.find(params[:skill_level_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def find_skill_level
+    @skill_level = SkillLevel.find(params[:skill_level_id])
+  end
 
-    def set_skill_level_item
-      @skill_level_item = SkillLevelItem.find(params[:id])
-    end
+  def set_skill_level_item
+    @skill_level_item = SkillLevelItem.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def skill_level_item_params
-      params.require(:skill_level_item).permit(:name, :tip, :skill_level_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def skill_level_item_params
+    params.require(:skill_level_item).permit(:name, :tip, :skill_level_id)
+  end
 end
