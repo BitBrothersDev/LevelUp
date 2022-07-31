@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_questionable
-  before_action :set_question, only: :destroy
-
+  before_action :set_question, only: %i[edit update destroy]
 
   def create
     @question = @questionable.questions.new(question_params)
@@ -9,6 +8,14 @@ class QuestionsController < ApplicationController
       redirect_to @questionable, notice: "Question was successfully created."
     else
       redirect_to @questionable, error: "Question was successfully created."
+    end
+  end
+
+  def update
+    if @question.update(question_params)
+      redirect_to @questionable, notice: "Question was successfully updated."
+    else
+      redirect_to @questionable, error: "Question was successfully updated."
     end
   end
 

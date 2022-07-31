@@ -151,3 +151,9 @@ window.updateCompleteMaterial = function updateCompleteMaterial() {
         error: {}
     })
 }
+
+const exampleModal = document.getElementById('exampleModal-')
+exampleModal.addEventListener('show.bs.modal', function (event) {
+    exampleModal.querySelector('.modal-title')
+    exampleModal.querySelector('.modal-body input')
+})
