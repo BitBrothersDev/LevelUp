@@ -2,15 +2,13 @@ class SkillLevelItemsController < ApplicationController
   before_action :set_skill_level_item, only: %i[ show edit update destroy ]
   before_action :find_skill_level, only: %i[ create update destroy ]
 
+  DEFAULT_ITEMS_COUNT = 15
+
   # GET /skill_level_items or /skill_level_items.json
   def index
     level_title_params = params[:level_title]
     level = Level.find_by_title(level_title_params)
-    @skill_level_items = if level
-                           SkillLevel.fetch_skill_level_items(level)
-                         else
-                           SkillLevelItem.materials
-                         end
+    @pagy, @skill_level_items = fetch_skill_level_items(level_title_params, level)
   end
 
   # GET /skill_level_items/1 or /skill_level_items/1.json
@@ -76,6 +74,16 @@ class SkillLevelItemsController < ApplicationController
   end
 
   private
+
+  def fetch_skill_level_items(level_title, level)
+    return pagy(SkillLevel.fetch_skill_level_items(level), items: DEFAULT_ITEMS_COUNT) if level
+
+    if level_title == 'Without Materials'
+      pagy(SkillLevelItem.without_material, items: DEFAULT_ITEMS_COUNT)
+    else
+      pagy(SkillLevelItem.materials, items: DEFAULT_ITEMS_COUNT)
+    end
+  end
   # Use callbacks to share common setup or constraints between actions.
   def find_skill_level
     @skill_level = SkillLevel.find(params[:skill_level_id])
