@@ -5,6 +5,7 @@ class SkillLevelItem < ApplicationRecord
   has_many :estimation_skill_level_items
   has_many :questions, as: :questionable
 
-  scope :materials, -> { order('learning_materials_count ASC') }
+  scope :materials, -> { all }
+  scope :without_material, -> { where('learning_materials_count < 1') }
   scope :fetch_for_current_skill, ->(skill_level_id) { where(skill_level_id: skill_level_id) }
 end

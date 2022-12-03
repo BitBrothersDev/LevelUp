@@ -1,4 +1,4 @@
-- levels = Level.all
+- levels = [OpenStruct.new(title: 'All')] + Level.all.to_a << OpenStruct.new(title: 'Without Materials')
 - level_title_params = params[:level_title]
 %p{:style => "color: green"}= notice
 %h1 Skill level items
@@ -13,6 +13,8 @@
   #skill_level_items
     - @skill_level_items.each do |skill_level_item|
       = render skill_level_item
+
+  = pagy_bootstrap_nav(@pagy).html_safe
   -#    %p
         -# = link_to "Show this skill level item", skill_level_item
   = link_to "New skill level item", new_skill_level_item_path, class: 'btn btn-outline-warning'
