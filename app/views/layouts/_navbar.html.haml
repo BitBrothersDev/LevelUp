@@ -6,19 +6,9 @@
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto.mb-2.mb-lg-0.d-flex.w-100
         %li.nav-item
-          = link_to 'Learning materials', learning_materials_path, class: "nav-link #{is_active('learning_materials')}"
-        %li.nav-item
-          = link_to 'JobFunctions', job_functions_path, class: "nav-link #{is_active('job_functions')}"
-        %li.nav-item
-          = link_to 'Skills', skills_path, class: "nav-link #{is_active('skills')}"
-        %li.nav-item
-          = link_to 'SkillLevels', skill_levels_path, class: "nav-link #{is_active('skill_levels')}"
-        %li.nav-item
-          = link_to 'SkillCategories', skill_categories_path, class: "nav-link #{is_active('skill_categories')}"
-        %li.nav-item
-          = link_to 'Levels', levels_path, class: "nav-link #{is_active('levels')}"
-        %li.nav-item
           = link_to 'SKillLevelItems', skill_level_items_path, class: "nav-link #{is_active('skill_level_items')}"
+        %li.nav-item
+          = link_to 'RandSKillLevelItems', random_skill_level_item_skill_level_items_path, class: "nav-link #{is_active('skill_level_items')}"
         %li.nav-item.dropdown
           %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
             Managing

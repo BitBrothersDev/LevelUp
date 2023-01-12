@@ -15,6 +15,12 @@ class SkillLevelItemsController < ApplicationController
   def show
   end
 
+  def random_skill_level_item
+    level_title_params = params[:level_title]
+    level = Level.find_by_title(level_title_params)
+    @skill_level_item = fetch_skill_level_items_rand(level_title_params, level).sample
+  end
+
   # GET /skill_level_items/new
   def new
     @skill_level_item = SkillLevelItem.new
@@ -74,6 +80,18 @@ class SkillLevelItemsController < ApplicationController
   end
 
   private
+
+  def fetch_skill_level_items_rand(level_title, level)
+    return SkillLevel.fetch_skill_level_items(level) if level
+
+    if level_title == 'Without Materials'
+      SkillLevelItem.without_material
+    elsif level_title == 'With Materials'
+      SkillLevelItem.with_material
+    else
+      SkillLevelItem.materials
+    end
+  end
 
   def fetch_skill_level_items(level_title, level)
     return pagy(SkillLevel.fetch_skill_level_items(level), items: DEFAULT_ITEMS_COUNT) if level

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :skill_level_items do
     resources :estimation_skill_level_items
     resources :questions
+    collection do
+      get :random_skill_level_item
+    end
   end
   resources :skill_categories
   resources :learning_materials do
