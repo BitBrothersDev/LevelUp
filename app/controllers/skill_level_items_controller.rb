@@ -18,7 +18,7 @@ class SkillLevelItemsController < ApplicationController
   def random_skill_level_item
     level_title_params = params[:level_title]
     level = Level.find_by_title(level_title_params)
-    materials = params[:level_title]
+    materials = params[:materials]
     @skill_level_item = fetch_skill_level_items_rand(materials, level).sample
   end
 
