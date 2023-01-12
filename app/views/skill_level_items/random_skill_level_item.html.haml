@@ -1,6 +1,8 @@
-- levels = Level.all.to_a << OpenStruct.new(title: 'Without Materials')
-- levels  << OpenStruct.new(title: 'With Materials')
+- levels = Level.all.to_a
+- with_contents =  [OpenStruct.new(title: 'With Materials')]
+- with_contents  << OpenStruct.new(title: 'Without Materials')
 - level_title_params = params[:level_title]
+- with_contents_params = params[:materials]
 
 .bg-purple.m-2.p-3.rounded
   .my-5.p-3.bg-white.rounded.shadow-sm
@@ -11,6 +13,10 @@
         - levels.each_with_index do |level, i|
           - link_class = level_title_params == level.title ? 'active' : ''
           %li.nav-item{:role => "presentation"}
-            = link_to level.title, random_skill_level_item_skill_level_items_path(level_title:  level.title), :class => "nav-link #{link_class}"
+            = link_to level.title, random_skill_level_item_skill_level_items_path(level_title:  level.title, materials: with_contents_params), :class => "nav-link #{link_class}"
+        - with_contents.each_with_index do |level, i|
+          - link_class = with_contents_params == level.title ? 'active' : ''
+          %li.nav-item{:role => "presentation"}
+            = link_to level.title, random_skill_level_item_skill_level_items_path(level_title: level_title_params, materials:  level.title), :class => "nav-link #{link_class}"
 
 = render 'skill_level_items/general_skill_level_item_template'

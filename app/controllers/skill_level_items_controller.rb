@@ -18,7 +18,8 @@ class SkillLevelItemsController < ApplicationController
   def random_skill_level_item
     level_title_params = params[:level_title]
     level = Level.find_by_title(level_title_params)
-    @skill_level_item = fetch_skill_level_items_rand(level_title_params, level).sample
+    materials = params[:level_title]
+    @skill_level_item = fetch_skill_level_items_rand(materials, level).sample
   end
 
   # GET /skill_level_items/new
@@ -81,15 +82,15 @@ class SkillLevelItemsController < ApplicationController
 
   private
 
-  def fetch_skill_level_items_rand(level_title, level)
-    return SkillLevel.fetch_skill_level_items(level) if level
-
-    if level_title == 'Without Materials'
-      SkillLevelItem.without_material
-    elsif level_title == 'With Materials'
-      SkillLevelItem.with_material
+  def fetch_skill_level_items_rand(materials, level)
+    skill_level_items =  SkillLevel.fetch_skill_level_items(level) if level
+    skill_level_items ||= SkillLevelItem.all
+    if materials == 'Without Materials'
+      skill_level_items.without_material
+    elsif materials == 'With Materials'
+      skill_level_items.with_material
     else
-      SkillLevelItem.materials
+      skill_level_items.materials
     end
   end
 
