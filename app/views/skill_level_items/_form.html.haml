@@ -17,4 +17,7 @@
     = form.label :skill_level_id, style: "display: block"
     = form.text_field :skill_level_id
   %div
+    = form.label :own_explanation, style: "display: block"
+    = form.rich_text_area :own_explanation,  class: 'form-control'
+  %div
     = form.submit

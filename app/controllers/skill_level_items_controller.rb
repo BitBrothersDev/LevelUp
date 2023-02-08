@@ -1,6 +1,6 @@
 class SkillLevelItemsController < ApplicationController
   before_action :set_skill_level_item, only: %i[ show edit update destroy ]
-  before_action :find_skill_level, only: %i[ create update destroy ]
+  before_action :find_skill_level, only: %i[ create destroy ]
 
   DEFAULT_ITEMS_COUNT = 15
 
@@ -61,7 +61,7 @@ class SkillLevelItemsController < ApplicationController
   def update
     respond_to do |format|
       if @skill_level_item.update(skill_level_item_params)
-        format.html { redirect_to @skill_level.skill, notice: "Skill level item was successfully updated." }
+        format.html { redirect_to @skill_level_item, notice: "Skill level item was successfully updated." }
         format.json { render :show, status: :ok, location: @skill_level.skill }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -114,6 +114,6 @@ class SkillLevelItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def skill_level_item_params
-    params.require(:skill_level_item).permit(:name, :tip, :skill_level_id)
+    params.require(:skill_level_item).permit(:name, :tip, :skill_level_id, :own_explanation)
   end
 end

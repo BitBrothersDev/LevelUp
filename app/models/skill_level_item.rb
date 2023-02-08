@@ -5,6 +5,7 @@ class SkillLevelItem < ApplicationRecord
   has_many :estimation_skill_level_items
   has_many :questions, as: :questionable
 
+  has_rich_text :own_explanation
   scope :materials, -> { all.order(learning_materials_count: :desc) }
   scope :without_material, -> { where('learning_materials_count < 1') }
   scope :with_material, -> { where('learning_materials_count >= 1') }

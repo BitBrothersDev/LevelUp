@@ -151,3 +151,5 @@ window.updateCompleteMaterial = function updateCompleteMaterial() {
         error: {}
     })
 }
+import "trix"
+import "@rails/actiontext"

@@ -32,3 +32,7 @@
         There is not any materials
         .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
   = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item
+  %b
+    %p Own explanation
+    .border.border-primary.p-4.rounded
+      = skill_level_item.own_explanation
