@@ -6,14 +6,16 @@
 - level_title_params = params[:level_title]
 - with_contents_params = params[:materials]
 - with_explanation_params = params[:explanation]
-- new_params = {level_title: params[:level_title], material: with_contents_params, explanation: with_explanation_params}
+- skill_name_params = params[:skill_name]
+- new_params = {level_title: params[:level_title], material: with_contents_params,
+ explanation: with_explanation_params, skill_name: skill_name_params}
+
 
 .bg-purple.m-2.p-3.rounded
   .my-5.p-3.bg-white.rounded.shadow-sm
     %h6.d-flex.border-bottom.border-gray.pb-2.mb-0
       %ul#myTab.nav.nav-pills{:role => "tablist"}
         = link_to "All", random_skill_level_item_skill_level_items_path(level_title: "All"), :class => "nav-link #{level_title_params == "All" ? 'active' : ''}"
-
         - levels.each_with_index do |level, i|
           - link_class = level_title_params == level.title ? 'active' : ''
           %li.nav-item{:role => "presentation"}
@@ -28,4 +30,12 @@
             = link_to level.title, random_skill_level_item_skill_level_items_path(new_params.merge(explanation:  level.title)), :class => "nav-link #{link_class}"
         %li.nav-item
           .nav-link= @skill_level_items.count
+  .my-5.p-3.bg-white.rounded.shadow-sm
+    %h6.d-flex.border-bottom.border-gray.pb-2.mb-0
+      %ul#myTab.nav.nav-pills{:role => "tablist"}
+        = link_to ["All", "(#{@skills.count})"].join(" "), random_skill_level_item_skill_level_items_path(skill_name: "All"), :class => "nav-link #{skill_name_params == "All" ? 'active' : ''}"
+        - @skills.each do |skill|
+          %li.nav-item{:role => "presentation"}
+            - link_class = skill_name_params == skill.name ? 'active' : ''
+            = link_to skill.name, random_skill_level_item_skill_level_items_path(new_params.merge(skill_name:  skill.name)), :class => "nav-link #{link_class}"
 = render 'skill_level_items/general_skill_level_item_template'

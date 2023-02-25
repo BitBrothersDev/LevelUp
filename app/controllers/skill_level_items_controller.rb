@@ -20,7 +20,9 @@ class SkillLevelItemsController < ApplicationController
     level = Level.find_by_title(level_title_params)
     materials = params[:materials]
     explanation = params[:explanation]
-    @skill_level_items = fetch_skill_level_items_rand(materials, level, explanation)
+    @skills = level ? Skill.where(skill_levels: level.skill_levels) : Skill.all
+    skill = Skill.find_by_name(params[:skill_name])
+    @skill_level_items = fetch_skill_level_items_rand(materials, level, explanation, skill)
     @skill_level_item = @skill_level_items.sample
   end
 
@@ -84,7 +86,7 @@ class SkillLevelItemsController < ApplicationController
 
   private
 
-  def fetch_skill_level_items_rand(materials, level, explanation = nil)
+  def fetch_skill_level_items_rand(materials, level, explanation = nil, skill)
     skill_level_items =  SkillLevel.fetch_skill_level_items(level) if level
     skill_level_items ||= SkillLevelItem.all
     items = if materials == 'Without Materials'
@@ -96,6 +98,7 @@ class SkillLevelItemsController < ApplicationController
             end
     items = items.with_own_explanation if explanation.presence == 'With explanation'
     items = items.without_own_explanation if explanation.presence == 'Without explanation'
+    items = items.where(skill_level: skill.skill_levels) if skill
     items.includes(:questions, :rich_text_own_explanation, skill_level: :skill).compact
   end
 
