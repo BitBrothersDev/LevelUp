@@ -26,5 +26,6 @@
           - link_class = with_explanation_params == level.title ? 'active' : ''
           %li.nav-item{:role => "presentation"}
             = link_to level.title, random_skill_level_item_skill_level_items_path(new_params.merge(explanation:  level.title)), :class => "nav-link #{link_class}"
-
+        %li.nav-item
+          .nav-link= @skill_level_items.count
 = render 'skill_level_items/general_skill_level_item_template'

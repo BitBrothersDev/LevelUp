@@ -1,5 +1,5 @@
 class SkillsController < ApplicationController
-  before_action :set_skill, only: %i[ show edit update destroy ]
+  before_action :set_skill, only: %i[edit update destroy ]
 
   # GET /skills or /skills.json
   def index
@@ -8,6 +8,7 @@ class SkillsController < ApplicationController
 
   # GET /skills/1 or /skills/1.json
   def show
+    @skill = Skill.find(params[:id])
   end
 
   # GET /skills/new

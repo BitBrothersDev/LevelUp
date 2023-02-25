@@ -1,3 +1,5 @@
+- skill_levels = @skill.skill_levels.includes(:level, :rich_text_notice, :skill_level_items, learning_materials: :skill_level_item)
+
 %p{:style => "color: green"}= notice
 .d-flex.justify-content-between
   %span= link_to "<- Back to skills", skills_path, class: 'btn btn-link'
@@ -19,10 +21,10 @@
 .my-5.p-3.bg-white.rounded.shadow-sm
   %h6.d-flex.border-bottom.border-gray.pb-2.mb-0
     %ul#myTab.nav.nav-pills{:role => "tablist"}
-      - @skill.skill_levels.each_with_index  do |skill_level, i|
+      - skill_levels.each_with_index  do |skill_level, i|
         %li.nav-item{:role => "presentation"}
           %button{"aria-controls" => "home", "aria-selected" => "true", :class => "nav-link #{i.zero? ? 'active' : ''}", "data-bs-target" => "##{[skill_level.level.title, skill_level.id, 'tab-id'].join("-")}", "data-bs-toggle" => "tab", :id => [skill_level.level.title, skill_level.id].join("-"), :role => "tab", :type => "button"}= skill_level.level.title
   %div.tab-content#myTabContent
     / <div class="tab-content" id="myTabContent">
-    - @skill.skill_levels.each_with_index  do |skill_level, i|
+    - skill_levels.each_with_index  do |skill_level, i|
       = render 'skills/skill_levels/level', skill_level: skill_level, i: i
