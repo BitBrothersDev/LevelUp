@@ -20,7 +20,7 @@ class SkillLevelItemsController < ApplicationController
     level = Level.find_by_title(level_title_params)
     materials = params[:materials]
     explanation = params[:explanation]
-    @skills = level ? Skill.where(skill_levels: level.skill_levels) : Skill.all
+    @skills = level ? Skill.by_level(level) : Skill.for_random_page
     skill = Skill.find_by_name(params[:skill_name])
     @skill_level_items = fetch_skill_level_items_rand(materials, level, explanation, skill)
     @skill_level_item = @skill_level_items.sample
