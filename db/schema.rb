@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_24_174833) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_193054) do
   create_table "action_text_rich_texts", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -155,6 +155,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_24_174833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "skill_category_id"
+    t.boolean "crucial", default: false
+    t.index ["crucial"], name: "index_skills_on_crucial"
     t.index ["skill_category_id"], name: "index_skills_on_skill_category_id"
   end
 

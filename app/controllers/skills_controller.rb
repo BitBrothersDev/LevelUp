@@ -1,5 +1,5 @@
 class SkillsController < ApplicationController
-  before_action :set_skill, only: %i[edit update destroy ]
+  before_action :set_skill, only: %i[edit update destroy toggle]
 
   # GET /skills or /skills.json
   def index
@@ -18,6 +18,11 @@ class SkillsController < ApplicationController
 
   # GET /skills/1/edit
   def edit
+  end
+
+  def toggle
+    @skill.update(crucial: params[:completed])
+    render json: { message: "Success" }
   end
 
   # POST /skills or /skills.json

@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   resources :material_containers
   resources :skills do
     resources :estimation_skills
+    member do
+      post :toggle
+    end
   end
   resources :levels
   resources :job_functions

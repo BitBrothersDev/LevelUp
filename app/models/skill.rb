@@ -21,10 +21,10 @@ class Skill < ApplicationRecord
     find_by_sql(
       "
         SELECT skills.name, COUNT(DISTINCT(skill_level_items.id)) as skill_level_count FROM skills
-        INNER JOIN skill_levels on skill_levels.skill_id  = skills.id
+        INNER JOIN skill_levels on skill_levels.skill_id = skills.id
         INNER JOIN skill_level_items on skill_level_items.skill_level_id  = skill_levels.id
-        WHERE skill_levels.id in (#{level.skill_level_ids.join(', ')})
-        GROUP BY skills.id
+        WHERE skills.crucial = true and skill_levels.id in (#{level.skill_level_ids.join(', ')})
+        GROUP BY (skills.id)
       "
     )
   end
@@ -34,7 +34,8 @@ class Skill < ApplicationRecord
       "
         SELECT skills.name, COUNT(DISTINCT(skill_level_items.id)) as skill_level_count FROM skills
         INNER JOIN skill_levels on skill_levels.skill_id  = skills.id
-        INNER JOIN skill_level_items on skill_level_items.skill_level_id  = skill_levels.id
+        INNER JOIN skill_level_items on skill_level_items.skill_level_id = skill_levels.id
+        WHERE skills.crucial = true
         GROUP BY skills.id
       "
     )
