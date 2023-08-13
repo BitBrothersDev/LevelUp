@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        ECR_REPOSITORY_URL = '424680994518.dkr.ecr.eu-central-1.amazonaws.com/my-dev-app-repo'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // This checks out the code from your Git repository
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t levelup:latest .'
+                }
+            }
+        }
+
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh '$(aws ecr get-login --no-include-email --region your-region)'
+                    sh "docker tag levelup:latest $ECR_REPOSITORY_URL:latest"
+                    sh "docker push $ECR_REPOSITORY_URL:latest"
+                }
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                script {
+                    // Assuming you have kubectl configured on your Jenkins agent
+                    sh "kubectl set image deployment/levelup levelup=$ECR_REPOSITORY_URL:latest"
+                }
+            }
+        }
+    }
+}
