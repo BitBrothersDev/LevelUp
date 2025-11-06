@@ -1,8 +1,20 @@
-%p{:style => "color: green"}= notice
-%h1 Material containers
-#material_containers
-  - @material_containers.each do |material_container|
-    = render material_container
-    %p
-      = link_to "Show this material container", material_container
-= link_to "New material container", new_material_container_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Material containers
+        %p.page-subtitle Pair job functions with levels to organise materials
+      .page-actions
+        = link_to 'New material container', new_material_container_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @material_containers.present?
+      #material_containers.card-grid
+        - @material_containers.each do |material_container|
+          = render material_container
+    - else
+      .empty-state
+        %h3.mb-2 No containers configured
+        %p.mb-0 Create containers to connect materials with roles and levels.

@@ -1,12 +1,14 @@
 = render 'skills/add_learning_material', skill_level: skill_level, learning_material: material
-.col-md-6
-  .border.d-flex.align-items-center.p-3.my-2.text-white-50.bg-purple.rounded.shadow-sm.learn_item
-    .lh-1
-      %h1.h6.mb-0.text-white.lh-1= material.name.truncate(40)
-      %small= material.material_type
-    .ms-auto
+.modern-card.learning-material-card
+  .d-flex.flex-wrap.align-items-center.justify-content-between.gap-3
+    .flex-grow-1
+      %h4.card-title.mb-1= material.name.truncate(60)
+      %p.card-meta.mb-0= material.material_type.present? ? material.material_type.titleize : 'Resource'
+    .floating-toolbar
       - if current_user.present?
         - checked = material.complete_material&.is_completed?
-        = check_box_tag :checked, checked, checked = checked, {onclick: 'updateCompleteMaterial()', data: { material_id: material.id}}
-      = link_to '-> Visit Link', material.link, target: '_blank', class: 'btn btn-link text-white-50 fs-5'
-      .btn.btn-link.text-white-50.fs-5{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{material.skill_level_item_id}-#{material.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
+        = check_box_tag :checked, checked, checked = checked, { onclick: 'updateCompleteMaterial()', data: { material_id: material.id } }
+      = link_to 'Visit resource', material.link, target: '_blank', class: 'btn btn-sm btn-outline-primary'
+      %button.btn.btn-sm.btn-outline-secondary{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{material.skill_level_item_id}-#{material.id}", "data-bs-toggle" => "modal", :type => "button"}
+        %i.bi.bi-pencil
+        Edit

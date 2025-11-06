@@ -1,8 +1,20 @@
-%p{:style => "color: green"}= notice
-%h1 Job functions
-#job_functions
-  - @job_functions.each do |job_function|
-    = render job_function
-    %p
-      = link_to "Show this job function", job_function
-= link_to "New job function", new_job_function_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Job Functions
+        %p.page-subtitle Shape responsibilities and expectations for each role
+      .page-actions
+        = link_to 'New job function', new_job_function_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @job_functions.present?
+      #job_functions.card-grid
+        - @job_functions.each do |job_function|
+          = render job_function
+    - else
+      .empty-state
+        %h3.mb-2 No job functions yet
+        %p.mb-0 Start by creating the first job function to organise your skill catalog.

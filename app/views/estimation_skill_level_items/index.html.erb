@@ -1,14 +1,30 @@
-<p style="color: green"><%= notice %></p>
+<div class="page-wrapper">
+  <div class="container">
+    <div class="page-header">
+      <div class="title-group">
+        <h1 class="page-title">Estimation skill level items</h1>
+        <p class="page-subtitle">Detailed breakdown of self-assessed items</p>
+      </div>
+      <div class="page-actions">
+        <%= link_to "New estimation skill level item", new_estimation_skill_level_item_path, class: "btn btn-primary" %>
+      </div>
+    </div>
 
-<h1>Estimation skill level items</h1>
+    <% if notice.present? %>
+      <div class="modern-alert" role="alert"><%= notice %></div>
+    <% end %>
 
-<div id="estimation_skill_level_items">
-  <% @estimation_skill_level_items.each do |estimation_skill_level_item| %>
-    <%= render estimation_skill_level_item %>
-    <p>
-      <%= link_to "Show this estimation skill level item", estimation_skill_level_item %>
-    </p>
-  <% end %>
+    <% if @estimation_skill_level_items.present? %>
+      <div id="estimation_skill_level_items" class="card-grid">
+        <% @estimation_skill_level_items.each do |estimation_skill_level_item| %>
+          <%= render estimation_skill_level_item %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <h3 class="mb-2">No estimation items yet</h3>
+        <p class="mb-0">Create detailed entries to capture expectations per skill level.</p>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New estimation skill level item", new_estimation_skill_level_item_path %>

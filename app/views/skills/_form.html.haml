@@ -1,23 +1,25 @@
-= form_with(model: skill) do |form|
+= form_with(model: skill, class: 'modern-form') do |form|
   - if skill.errors.any?
-    %div{:style => "color: red"}
-      %h2
-        = pluralize(skill.errors.count, "error")
-        prohibited this skill from being saved:
-      %ul
+    .modern-alert.alert-danger{ role: 'alert' }
+      %h2.mb-2= pluralize(skill.errors.count, 'error') + ' prevented this skill from being saved:'
+      %ul.mb-0
         - skill.errors.each do |error|
           %li= error.full_message
-  %div
-    = form.label :name, style: "display: block"
-    = form.text_field :name
-  %div
-    = form.label :description, style: "display: block"
-    = form.text_area :description
-  %div
-    = form.label :skill_category, style: "display: block"
-    = form.select :skill_category_id, SkillCategory.all.collect { |s_c| [s_c.name, s_c.id]}, {},  class: 'form-select'
-  %div
-    = form.label :levels, style: "display: block"
-    = form.select :level_ids, Level.all.collect { |s_l| ["#{s_l.title} (#{s_l.name})", s_l.id]}, { include_hidden: false, include_blank: "Please Select" }, multiple: true , class: 'form-select'
-  %div
-    = form.submit
+
+  .content-card
+    .form-grid
+      .form-group
+        = form.label :name
+        = form.text_field :name, class: 'form-control', placeholder: 'Skill name'
+      .form-group
+        = form.label :description
+        = form.text_area :description, class: 'form-control', placeholder: 'Describe the skill and expectations'
+      .form-group
+        = form.label :skill_category_id, 'Skill category'
+        = form.select :skill_category_id, SkillCategory.all.map { |category| [category.name, category.id] }, { include_blank: 'Select category' }, class: 'form-select'
+      .form-group
+        = form.label :level_ids, 'Levels'
+        = form.select :level_ids, Level.all.map { |level| ["#{level.title.presence || level.name} (#{level.name})", level.id] }, { include_hidden: false, include_blank: 'Please select', multiple: true }, class: 'form-select'
+
+  .form-actions
+    = form.submit class: 'btn btn-primary'

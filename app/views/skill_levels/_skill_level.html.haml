@@ -1,10 +1,10 @@
-%div{:id => "#{dom_id skill_level}"}
-  %p
-    %strong Skill:
-    = skill_level.skill_id
-  %p
-    %strong Level:
-    = skill_level.level_id
-  %p
-    %strong Notice:
-    = skill_level.notice
+.modern-card{ id: dom_id(skill_level) }
+  .card-icon
+    %i.bi.bi-bar-chart
+  %h3.card-title= skill_level.skill&.name || "Skill ##{skill_level.skill_id}"
+  .card-meta= skill_level.level&.title.presence || skill_level.level&.name || "Level ##{skill_level.level_id}"
+  - if skill_level.notice.present?
+    %p.mb-0.text-muted= skill_level.notice
+  .card-actions
+    = link_to 'View details', skill_level, class: 'btn btn-sm btn-outline-primary'
+    = link_to 'Edit', edit_skill_level_path(skill_level), class: 'btn btn-sm btn-outline-secondary'

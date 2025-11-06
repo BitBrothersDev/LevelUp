@@ -2,21 +2,42 @@
 = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: SkillLevelItem.new
 = render 'skills/add_learning_material', skill_level: skill_level, learning_material: LearningMaterial.new
 %div{"aria-labelledby" => "#{[skill_level.level.title, skill_level.id].join("-")}", :class => "tab-pane fade show #{i.zero? ? 'active' : ''}", :id => "#{[skill_level.level.title, skill_level.id, 'tab-id'].join("-")}", :role => "tabpanel"}
-  .d-flex.justify-content-between.align-items-center
-    .mt-4.mb-2.fs-5
-      %b
-        What you should know (#{skill_level.level.title})
-    .ms-auto
-      .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-", "data-bs-toggle" => "modal", :type => "button"} Add Item
-      .btn.btn-outline-primary{"data-bs-target" => "#modal-edit_skill_level-#{skill_level.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
-  .bg-purple.rounded.p-3
-    - skill_level.skill_level_items.each_with_index  do |skill_level_item, i|
-      = render 'skills/skill_level_items/items', skill_level_item: skill_level_item, skill_level: skill_level
-  = skill_level.notice
-  .d-flex.justify-content-between.align-items-center.my-2
-    %h6
-      %b Learning materials
-    .btn.btn-outline-primary{"data-bs-target" => "#modal-add-material-#{skill_level.id}--", "data-bs-toggle" => "modal", :type => "button"} + Add
-  .row
-    - skill_level.learning_materials.each do |material|
-      = render 'skills/learning_materials/material', material: material, skill_level: skill_level
+  .d-flex.flex-wrap.align-items-center.justify-content-between.gap-3.mb-3
+    %h3.mb-0.fw-semibold= "What you should know (#{skill_level.level.title})"
+    .floating-toolbar
+      %button.btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-", "data-bs-toggle" => "modal", :type => "button"}
+        %i.bi.bi-plus-lg.me-1
+        Add item
+      %button.btn.btn-outline-primary{"data-bs-target" => "#modal-edit_skill_level-#{skill_level.id}", "data-bs-toggle" => "modal", :type => "button"}
+        %i.bi.bi-pencil.me-1
+        Edit level
+
+  .content-card.mb-4
+    - if skill_level.skill_level_items.any?
+      .modern-list
+        - skill_level.skill_level_items.each_with_index do |skill_level_item, i|
+          = render 'skills/skill_level_items/items', skill_level_item: skill_level_item, skill_level: skill_level
+    - else
+      .empty-state
+        %h4.mb-2 No items yet
+        %p.mb-0 Add items that describe the expectations for this level.
+    - if skill_level.notice.present?
+      %hr.my-4
+      %div
+        %h4.fs-6.text-muted.mb-2 Additional notes
+        = skill_level.notice
+
+  .d-flex.justify-content-between.align-items-center.mb-3
+    %h3.mb-0.fw-semibold Learning materials
+    %button.btn.btn-outline-primary{"data-bs-target" => "#modal-add-material-#{skill_level.id}--", "data-bs-toggle" => "modal", :type => "button"}
+      %i.bi.bi-plus-lg.me-1
+      Add material
+
+  - if skill_level.learning_materials.any?
+    .modern-list
+      - skill_level.learning_materials.each do |material|
+        = render 'skills/learning_materials/material', material: material, skill_level: skill_level
+  - else
+    .empty-state
+      %h4.mb-2 No learning materials yet
+      %p.mb-0 Add curated resources to support this level.

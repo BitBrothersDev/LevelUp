@@ -1,16 +1,26 @@
-%div{:id => "#{dom_id learning_material}"}
-  %p
-    %strong Material type:
-    = learning_material.material_type
-  %p
-    %strong Name:
-    = learning_material.name
-  %p
-    %strong Link:
-    = learning_material.link
-  %p
-    %strong Learnable:
-    = learning_material.learnable_id
-  %p
-    %strong Learnable:
-    = learning_material.learnable_id
+.modern-card{ id: dom_id(learning_material) }
+  .card-icon
+    %i.bi.bi-journal-text
+  %h3.card-title= learning_material.name.presence || 'Untitled material'
+  .card-meta= learning_material.material_type.present? ? learning_material.material_type.titleize : 'Uncategorised'
+
+  - if learning_material.link.present?
+    %p
+      %span.pill-tag Link
+      = link_to learning_material.link, learning_material.link, target: '_blank', rel: 'noopener'
+
+  .detail-table
+    .detail-row
+      .detail-label Learnable type
+      .detail-value= learning_material.learnable_type.presence || 'Not assigned'
+    .detail-row
+      .detail-label Learnable ID
+      .detail-value= learning_material.learnable_id.presence || 'Not linked'
+    - if learning_material.skill_level_item_id.present?
+      .detail-row
+        .detail-label Skill level item
+        .detail-value= learning_material.skill_level_item_id
+
+  .card-actions
+    = link_to 'View details', learning_material, class: 'btn btn-sm btn-outline-primary'
+    = link_to 'Edit', edit_learning_material_path(learning_material), class: 'btn btn-sm btn-outline-secondary'

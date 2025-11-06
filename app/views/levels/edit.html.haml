@@ -1,7 +1,11 @@
-%h1 Editing level
-= render "form", level: @level
-%br/
-%div
-  = link_to "Show this level", @level
-  |
-  \#{link_to "Back to levels", levels_path}
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Edit level
+        %p.page-subtitle Ensure level information is accurate and clear
+      .page-actions
+        = link_to 'Back to levels', levels_path, class: 'btn btn-outline-secondary'
+        = link_to 'View level', @level, class: 'btn btn-outline-primary'
+
+    = render 'form', level: @level

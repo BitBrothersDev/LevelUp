@@ -1,8 +1,20 @@
-%p{:style => "color: green"}= notice
-%h1 Levels
-#levels
-  - @levels.each do |level|
-    = render level
-    %p
-      = link_to "Show this level", level
-= link_to "New level", new_level_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Levels
+        %p.page-subtitle Track progression milestones and expectations
+      .page-actions
+        = link_to 'New level', new_level_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @levels.present?
+      #levels.card-grid
+        - @levels.each do |level|
+          = render level
+    - else
+      .empty-state
+        %h3.mb-2 No levels defined
+        %p.mb-0 Create levels to map skill development paths.

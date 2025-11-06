@@ -1,21 +1,19 @@
-= form_with(model: skill_category) do |form|
+= form_with(model: skill_category, class: 'modern-form') do |form|
   - if skill_category.errors.any?
-    %div{:style => "color: red"}
-      %h2
-        = pluralize(skill_category.errors.count, "error")
-        prohibited this skill_category from being saved:
-      %ul
+    .modern-alert.alert-danger{ role: 'alert' }
+      %h2.mb-2= pluralize(skill_category.errors.count, 'error') + ' prevented this skill category from being saved:'
+      %ul.mb-0
         - skill_category.errors.each do |error|
           %li= error.full_message
-  %div
-    = form.label :name, style: "display: block"
-    = form.text_field :name
-  %div
-    = form.label :parent_category, style: "display: block"
-    = form.select :parent_category_id, SkillCategory.all.collect { |s_c| [s_c.name, s_c.id]}, { include_blank: true },  class: 'form-select'
-  / <div>
-  / </div>
-  / <div>
-  / </div>
-  %div
-    = form.submit
+
+  .content-card
+    .form-grid
+      .form-group
+        = form.label :name
+        = form.text_field :name, class: 'form-control', placeholder: 'Name this skill category'
+      .form-group
+        = form.label :parent_category_id, 'Parent category'
+        = form.select :parent_category_id, SkillCategory.all.map { |s_c| [s_c.name, s_c.id] }, { include_blank: 'No parent (top level)' }, class: 'form-select'
+
+  .form-actions
+    = form.submit class: 'btn btn-primary'

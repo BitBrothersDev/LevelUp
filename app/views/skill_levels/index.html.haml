@@ -1,8 +1,20 @@
-%p{:style => "color: green"}= notice
-%h1 Skill levels
-#skill_levels
-  - @skill_levels.each do |skill_level|
-    = render skill_level
-    %p
-      = link_to "Show this skill level", skill_level
-= link_to "New skill level", new_skill_level_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Skill levels
+        %p.page-subtitle Connect skills with level expectations
+      .page-actions
+        = link_to 'New skill level', new_skill_level_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @skill_levels.present?
+      #skill_levels.card-grid
+        - @skill_levels.each do |skill_level|
+          = render skill_level
+    - else
+      .empty-state
+        %h3.mb-2 No skill levels yet
+        %p.mb-0 Pair a skill with a level to set expectations.

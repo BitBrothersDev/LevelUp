@@ -1,9 +1,8 @@
-<%= form_with(model: estimation_skill) do |form| %>
+<%= form_with(model: estimation_skill, class: "modern-form") do |form| %>
   <% if estimation_skill.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(estimation_skill.errors.count, "error") %> prohibited this estimation_skill from being saved:</h2>
-
-      <ul>
+    <div class="modern-alert alert-danger" role="alert">
+      <h2 class="mb-2"><%= pluralize(estimation_skill.errors.count, "error") %> prevented this estimation skill from being saved:</h2>
+      <ul class="mb-0">
         <% estimation_skill.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,22 +10,24 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :level, style: "display: block" %>
-    <%= form.text_field :level %>
+  <div class="content-card">
+    <div class="form-grid">
+      <div class="form-group">
+        <%= form.label :level %>
+        <%= form.number_field :level, class: "form-control", placeholder: "Self-estimated level" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :user_id %>
+        <%= form.number_field :user_id, class: "form-control", placeholder: "User ID" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :skill_id %>
+        <%= form.number_field :skill_id, class: "form-control", placeholder: "Skill ID" %>
+      </div>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.label :skill_id, style: "display: block" %>
-    <%= form.text_field :skill_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="form-actions">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

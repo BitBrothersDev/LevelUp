@@ -1,8 +1,20 @@
-%p{:style => "color: green"}= notice
-%h1 Skill categories
-#skill_categories
-  - @skill_categories.each do |skill_category|
-    = render skill_category
-    %p
-      = link_to "Show this skill category", skill_category
-= link_to "New skill category", new_skill_category_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Skill categories
+        %p.page-subtitle Cluster skills into meaningful themes
+      .page-actions
+        = link_to 'New skill category', new_skill_category_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @skill_categories.present?
+      #skill_categories.card-grid
+        - @skill_categories.each do |skill_category|
+          = render skill_category
+    - else
+      .empty-state
+        %h3.mb-2 No skill categories yet
+        %p.mb-0 Create categories to group related skills.
