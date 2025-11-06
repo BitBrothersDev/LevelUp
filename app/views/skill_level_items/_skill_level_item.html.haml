@@ -1,42 +1,69 @@
 - skill_level = skill_level_item.skill_level
-%div{:id => "#{dom_id skill_level_item}"}
-  .w-100.bg-white.my-2.rounded.px-3.py-1
-    .d-flex.align-items-center
-      %div{"data-bs-target" => "#collapse-learning-material-#{skill_level_item.id}", "data-bs-toggle" => "collapse", :role => "button"}
-        .text-black.fw-normal= skill_level_item.name
-        %small{:style => "font-size:10px"}= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip'
-      .ms-auto.d-flex.align-items-center
+%div{:id => "#{dom_id skill_level_item}", :class => "skill-card"}
+  .skill-card-header
+    %h3= skill_level_item.name
+    - if !skill_level_item.tip.blank?
+      .skill-tip= skill_level_item.tip
+
+  -# Stats Section with Gamification
+  .card-stats
+    .stat-badge
+      .stat-icon 📖
+      .d-flex.flex-column.align-items-start
+        .stat-value= skill_level_item.learning_materials_count
+        .stat-label Materials
+
+    .stat-badge
+      .stat-icon
         = render 'skills/estimation_skill_level_item', skill_level_item: skill_level_item
-        %span.mx-4
-          = skill_level_item.learning_materials.count
-        = link_to "View", skill_level_item_path(skill_level_item), class: 'btn btn-outline-primary'
-        .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-#{skill_level_item.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
-  .collapse{:id => "collapse-learning-material-#{skill_level_item.id}"}
-    - skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item)
-    - if skill_learning_materials.any?
-      .row
-        - skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material|
-          = render 'skills/learning_materials/material', material: material, skill_level: skill_level
-          = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
-        - if skill_learning_materials.size.even?
-          .justify-content-center.d-flex.align-items-center.text-white
-            Add more materials
-            .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
-        - else
-          .col-md-6
-            .border.d-flex.align-items-center.p-3.my-2.text-white-50.bg-purple.rounded.shadow-sm.learn_item
-              .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
-    - else
-      = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
-      .justify-content-center.d-flex.align-items-center.text-white
-        There is not any materials
-        .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+      .d-flex.flex-column.align-items-start
+        .stat-label Progress
+
+  -# Action Buttons
+  .card-actions
+    = link_to skill_level_item_path(skill_level_item), class: 'modern-btn btn-primary-modern' do
+      %i.bi.bi-eye
+      View Details
+
+    %button.modern-btn.btn-secondary-modern{"data-bs-target" => "#collapse-learning-material-#{skill_level_item.id}", "data-bs-toggle" => "collapse", :type => "button"}
+      %i.bi.bi-book
+      Materials (#{skill_level_item.learning_materials_count})
+
+  -# Collapsible Learning Materials Section
+  .materials-section
+    .collapse{:id => "collapse-learning-material-#{skill_level_item.id}"}
+      - skill_learning_materials = skill_level_item.learning_materials
+      - if skill_learning_materials.any?
+        .materials-grid
+          - skill_level_item.learning_materials.each do |material|
+            .material-card
+              = render 'skills/learning_materials/material', material: material, skill_level: skill_level
+
+          -# Add Material Button
+          .material-card.add-material-card
+            %button.modern-btn.btn-secondary-modern{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"}
+              %i.bi.bi-plus-circle
+              Add Material
+      - else
+        .text-center.p-4
+          %p.text-muted No materials yet
+          %button.modern-btn.btn-primary-modern{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"}
+            %i.bi.bi-plus-circle
+            Add First Material
+
+  -# Own Explanation Section (if exists)
+  - if skill_level_item.own_explanation.present?
+    .mt-3
+      %small.text-muted 💭 Your Notes:
+      .p-3.bg-light.rounded-3.mt-2{:style => "font-size: 0.9rem;"}
+        = skill_level_item.own_explanation
+
+  -# Skill Reference
+  .mt-3
+    %small.text-muted
+      Part of:
+      = link_to skill_level.skill.name, skill_level.skill, class: 'text-decoration-none fw-semibold'
+
+  -# Hidden Modals (keep existing functionality)
   = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item
-
-  %p Own explanation
-  .border.border-primary.p-4.rounded
-    = skill_level_item.own_explanation
-
-  %br
-  %h5
-    = link_to skill_level.skill.name, skill_level.skill
+  = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item

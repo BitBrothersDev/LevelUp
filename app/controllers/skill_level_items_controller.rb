@@ -8,7 +8,7 @@ class SkillLevelItemsController < ApplicationController
   def index
     level_title_params = params[:level_title]
     level = Level.find_by_title(level_title_params)
-    @pagy, @skill_level_items = fetch_skill_level_items(level_title_params, level)
+    @skill_level_items = fetch_skill_level_items(level_title_params, level)
   end
 
   # GET /skill_level_items/1 or /skill_level_items/1.json
@@ -99,17 +99,44 @@ class SkillLevelItemsController < ApplicationController
     items = items.with_own_explanation if explanation.presence == 'With explanation'
     items = items.without_own_explanation if explanation.presence == 'Without explanation'
     items = items.where(skill_level: skill.skill_levels) if skill
-    items.includes(:questions, :rich_text_own_explanation, skill_level: :skill).compact
+
+    # Eager load all associations to prevent N+1 queries
+    # Random page has same rendering as index page
+    items.includes(
+      :questions,
+      :rich_text_own_explanation,
+      :skill_level,
+      {
+        skill: :skill_levels,  # For estimation component
+        learning_materials: :complete_material  # Direct association from skill_level_item
+      }
+    ).compact
   end
 
   def fetch_skill_level_items(level_title, level)
-    return pagy(SkillLevel.fetch_skill_level_items(level), items: DEFAULT_ITEMS_COUNT) if level
-
-    if level_title == 'Without Materials'
-      pagy(SkillLevelItem.without_material, items: DEFAULT_ITEMS_COUNT)
+    base_query = if level
+      SkillLevel.fetch_skill_level_items(level)
+    elsif level_title == 'Without Materials'
+      SkillLevelItem.without_material
     else
-      pagy(SkillLevelItem.materials, items: DEFAULT_ITEMS_COUNT)
+      SkillLevelItem.materials
     end
+
+    # Eager load associations to prevent N+1 queries
+    # Based on Bullet gem analysis:
+    # ALL collapsed sections are rendered on page load (just hidden with CSS)
+    # Load learning_materials DIRECTLY from skill_level_item, not through skill_level
+    base_query
+      .includes(
+        :rich_text_own_explanation,
+        :skill_level,
+        {
+          skill: :skill_levels,  # For estimation component
+          learning_materials: :complete_material  # Direct association from skill_level_item
+        }
+      )
+      .page(params[:page])
+      .per(DEFAULT_ITEMS_COUNT)
   end
   # Use callbacks to share common setup or constraints between actions.
   def find_skill_level

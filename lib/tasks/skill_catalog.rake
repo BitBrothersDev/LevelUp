@@ -1,3 +1,6 @@
+require 'json'
+require 'fileutils'
+
 namespace :skills do
   desc "Normalize catalog data and add missing core skills"
   task sync: :environment do
@@ -15,6 +18,18 @@ namespace :skills do
           category.update!(name: stripped)
         end
       end
+    end
+
+    puts "Normalizing level records…"
+    Level.order(:id).each_with_index do |level, index|
+      next if level.name.present?
+
+      candidate = level.title.to_s.strip
+      candidate = candidate.parameterize(separator: '_').upcase if candidate.present?
+      candidate = "A#{index + 1}" if candidate.blank?
+      candidate = "LEVEL_#{level.id}" if Level.exists?(name: candidate)
+
+      level.update!(name: candidate)
     end
 
     missing_skills = [
@@ -159,7 +174,7 @@ namespace :skills do
       end
     end
 
-    levels = Level.where(name: %w[A1 A2 A3]).to_a
+    levels = Level.order(:id).to_a
 
     missing_skills.each do |config|
       category = find_or_create_category(config[:category])
@@ -209,6 +224,31 @@ namespace :skills do
       skill.update!(skill_category: category, name: skill_name)
     end
 
+    puts "Ensuring every skill has levels defined…"
+    Skill.find_each do |skill|
+      levels.each do |level|
+        SkillLevel.find_or_create_by!(skill: skill, level: level) do |skill_level|
+          label = level.title.presence || level.name
+          skill_level.notice = "<div class=\"trix-content\"><div>Define expectations for #{skill.name} (#{label}).</div></div>"
+        end
+      end
+    end
+
+    puts "Merging duplicate skill levels if any…"
+    Skill.find_each do |skill|
+      levels.each do |level|
+        records = SkillLevel.where(skill: skill, level: level).order(:id).to_a
+        next if records.size <= 1
+
+        primary = records.shift
+        records.each do |duplicate|
+          duplicate.skill_level_items.update_all(skill_level_id: primary.id)
+          LearningMaterial.where(learnable: duplicate).update_all(learnable_id: primary.id)
+          duplicate.destroy!
+        end
+      end
+    end
+
     puts "Normalizing skill names…"
     Skill.find_each do |skill|
       stripped = skill.name&.strip
@@ -242,5 +282,41 @@ namespace :skills do
     end
 
     puts "Skill catalog sync complete."
+  end
+
+  desc "Export skill hierarchy (categories → skills → levels → items) to tmp/skill_catalog.json"
+  task export: :environment do
+    export_path = Rails.root.join("tmp", "skill_catalog.json")
+    FileUtils.mkdir_p(export_path.dirname)
+
+    categories = SkillCategory
+                   .includes(skills: { skill_levels: [:level, :rich_text_notice, :skill_level_items] })
+                   .order(:name)
+
+    payload = categories.map do |category|
+      {
+        name: category.name,
+        parent: category.parent_category&.name,
+        skills: category.skills.order(:name).map do |skill|
+          {
+            name: skill.name,
+            description: skill.description.to_s,
+            crucial: skill.crucial,
+            levels: skill.skill_levels.includes(:level, :rich_text_notice, :skill_level_items)
+                             .order("levels.name").map do |skill_level|
+          {
+            level: skill_level.level.name,
+            title: skill_level.level.title,
+                notice: skill_level.rich_text_notice&.body&.to_plain_text&.strip,
+                items: skill_level.skill_level_items.order(:id).pluck(:name)
+              }
+            end
+          }
+        end
+      }
+    end
+
+    File.write(export_path, JSON.pretty_generate(payload))
+    puts "Exported skill hierarchy to #{export_path}"
   end
 end

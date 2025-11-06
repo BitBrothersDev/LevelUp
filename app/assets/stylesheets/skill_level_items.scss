@@ -1,0 +1,762 @@
+// Modern Design for Skill Level Items - 2025 UI/UX Trends
+// Includes: Glassmorphism, Bento Grid, Smooth Animations, Modern Typography
+
+// ============================================
+// Modern Color Palette
+// ============================================
+$primary-purple: #6f42c1;
+$primary-purple-light: #8b5cf6;
+$primary-purple-dark: #5b21b6;
+$accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$glass-bg: rgba(255, 255, 255, 0.7);
+$glass-border: rgba(255, 255, 255, 0.18);
+$shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+$shadow-hover: 0 12px 48px 0 rgba(31, 38, 135, 0.25);
+
+// ============================================
+// Page Container with Modern Gradient Background
+// ============================================
+.skill-catalog-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  padding: 2rem 0;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// ============================================
+// Modern Header Section
+// ============================================
+.catalog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+  }
+}
+
+// ============================================
+// Modern Tab Navigation with Glassmorphism
+// ============================================
+.modern-tabs {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: $shadow-soft;
+
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+
+    .nav-link {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      &.active {
+        background: white;
+        color: $primary-purple;
+        border-color: white;
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// ============================================
+// Bento Grid Layout for Cards
+// ============================================
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// Modern Glassmorphic Card Design
+// ============================================
+.skill-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: $shadow-soft;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  // Hover effect
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-hover;
+    border-color: rgba(255, 255, 255, 0.5);
+
+    .skill-card-header::before {
+      transform: scale(1.1);
+    }
+  }
+
+  // Animated background gradient
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $accent-gradient;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.skill-card-header {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    width: 60px;
+    height: 60px;
+    background: $accent-gradient;
+    border-radius: 50%;
+    opacity: 0.1;
+    transition: transform 0.4s ease;
+    z-index: 0;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  .skill-tip {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 0.5rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '💡';
+      font-size: 1rem;
+    }
+  }
+}
+
+// ============================================
+// Card Stats Section with Gamification
+// ============================================
+.card-stats {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(103, 163, 0, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(103, 163, 0, 0.2);
+}
+
+.stat-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .stat-icon {
+    font-size: 1.2rem;
+  }
+
+  .stat-value {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 1.1rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// ============================================
+// Modern Action Buttons
+// ============================================
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+
+  .modern-btn {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &.btn-primary-modern {
+      background: $accent-gradient;
+      color: white;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+      }
+    }
+
+    &.btn-secondary-modern {
+      background: white;
+      color: $primary-purple;
+      border: 2px solid rgba(111, 66, 193, 0.3);
+
+      &:hover {
+        background: rgba(111, 66, 193, 0.05);
+        border-color: $primary-purple;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// ============================================
+// Collapsible Learning Materials Section
+// ============================================
+.materials-section {
+  margin-top: 1rem;
+
+  .materials-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.15);
+    }
+
+    .toggle-icon {
+      transition: transform 0.3s ease;
+    }
+
+    &[aria-expanded="true"] .toggle-icon {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(247, 250, 252, 0.5);
+  border-radius: 12px;
+}
+
+// ============================================
+// Modern Pagination
+// ============================================
+.modern-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 1.5rem;
+
+  .pagination {
+    display: flex;
+    gap: 0.5rem;
+
+    .page-item {
+      .page-link {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: $primary-purple;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        font-weight: 500;
+
+        &:hover {
+          background: white;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      &.active .page-link {
+        background: $accent-gradient;
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+      }
+
+      &.disabled .page-link {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// ============================================
+// Floating Action Button
+// ============================================
+.fab-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: $accent-gradient;
+  color: white;
+  border: none;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  z-index: 100;
+  text-decoration: none;
+
+  &:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+  }
+}
+
+// ============================================
+// Smooth Animations
+// ============================================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-card {
+  animation: fadeInUp 0.6s ease-out backwards;
+
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
+  }
+}
+
+// ============================================
+// Responsive Design
+// ============================================
+@media (max-width: 768px) {
+  .catalog-header h1 {
+    font-size: 2rem;
+  }
+
+  .modern-tabs {
+    padding: 1rem;
+
+    .nav-pills .nav-link {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .fab-button {
+    bottom: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+// ============================================
+// Material Cards Styling
+// ============================================
+.material-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(203, 213, 224, 0.5);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  &.add-material-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    background: rgba(139, 92, 246, 0.05);
+    border: 2px dashed rgba(139, 92, 246, 0.3);
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.5);
+    }
+  }
+}
+
+// ============================================
+// Success Alert Modern Styling
+// ============================================
+.modern-alert {
+  background: rgba(72, 187, 120, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(72, 187, 120, 0.3);
+  border-radius: 12px;
+  color: #22543d;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+// ============================================
+// Loading States
+// ============================================
+.skill-card.loading {
+  opacity: 0.6;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid rgba(111, 66, 193, 0.2);
+    border-top-color: $primary-purple;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ============================================
+// Empty State Styling
+// ============================================
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  h3 {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+// ============================================
+// Dark Mode Support (Optional)
+// ============================================
+@media (prefers-color-scheme: dark) {
+  .skill-card {
+    background: rgba(26, 32, 44, 0.85);
+
+    .skill-card-header h3 {
+      color: #f7fafc;
+    }
+
+    .skill-tip {
+      color: #cbd5e0;
+    }
+  }
+}
+
+// ============================================
+// Enhanced Progress Indicators
+// ============================================
+.estimation {
+  .estimation-level {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(139, 92, 246, 0.3) !important;
+    transition: all 0.3s ease !important;
+
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.6) !important;
+      transform: scale(1.1) !important;
+    }
+
+    &.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      border-color: #667eea !important;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4) !important;
+    }
+  }
+
+  .reset_estimation_item_link {
+    font-size: 0.75rem;
+    color: rgba(139, 92, 246, 0.8) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #667eea !important;
+      transform: translateX(-2px);
+    }
+  }
+}
+
+// ============================================
+// Enhanced Button Designs
+// ============================================
+.modern-btn {
+  &.btn-primary-modern {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+
+    &:hover {
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
+      transform: translateY(-3px) !important;
+    }
+  }
+
+  &.btn-secondary-modern {
+    background: white !important;
+    color: $primary-purple !important;
+    border: 2px solid rgba(111, 66, 193, 0.3) !important;
+
+    &:hover {
+      background: rgba(111, 66, 193, 0.1) !important;
+      border-color: $primary-purple !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3) !important;
+    }
+  }
+}
+
+// ============================================
+// Improved Card Title Truncation
+// ============================================
+.skill-card-header h3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  min-height: 4.5em;
+}
+
+// ============================================
+// Collapsible Notes Styling
+// ============================================
+.skill-card {
+  .mt-3 {
+    .text-muted {
+      font-weight: 600;
+      color: #667eea !important;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .p-3 {
+      max-height: 150px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      line-height: 1.6;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(203, 213, 224, 0.2);
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(139, 92, 246, 0.5);
+        border-radius: 3px;
+
+        &:hover {
+          background: rgba(139, 92, 246, 0.7);
+        }
+      }
+    }
+  }
+}
+
+// ============================================
+// Enhanced FAB Button
+// ============================================
+.fab-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5) !important;
+  animation: pulse 2s ease-in-out infinite;
+
+  &:hover {
+    transform: scale(1.15) rotate(90deg) !important;
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.7) !important;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    opacity: 0.3;
+    z-index: -1;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.7);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+}
+
+// ============================================
+// Enhanced Stat Badges
+// ============================================
+.card-stats {
+  background: linear-gradient(135deg, rgba(103, 163, 0, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%) !important;
+  border: 1px solid rgba(139, 92, 246, 0.2) !important;
+}
+
+// ============================================
+// "Part of:" Link Enhancement
+// ============================================
+.skill-card .mt-3 .text-muted + a {
+  color: #667eea !important;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #764ba2 !important;
+    transform: translateX(4px);
+    text-decoration: underline;
+  }
+}

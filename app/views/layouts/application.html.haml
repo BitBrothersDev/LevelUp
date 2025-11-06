@@ -8,7 +8,11 @@
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    %link{:href => "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css", :rel => "stylesheet"}/
   %body
     = render 'layouts/navbar'
-    .container
+    - if controller_name == 'skill_level_items' && action_name == 'index'
       = yield
+    - else
+      .container
+        = yield
