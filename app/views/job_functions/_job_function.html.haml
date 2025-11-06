@@ -1,4 +1,7 @@
-%div{:id => "#{dom_id job_function}"}
-  %p
-    %strong Title:
-    = job_function.title
+.modern-card{ id: dom_id(job_function) }
+  .card-icon
+    %i.bi.bi-briefcase
+  %h3.card-title= job_function.title
+  .card-actions
+    = link_to 'View details', job_function, class: 'btn btn-sm btn-outline-primary'
+    = link_to 'Edit', edit_job_function_path(job_function), class: 'btn btn-sm btn-outline-secondary'

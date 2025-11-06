@@ -1,8 +1,25 @@
-%p{:style => "color: green"}= notice
-= render @material_container
-%div
-  = link_to "Edit this material container", edit_material_container_path(@material_container)
-  |
-  \#{link_to "Back to material containers", material_containers_path}
-  
-  \#{button_to "Destroy this material container", @material_container, method: :delete}
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title= @material_container.to_s
+        %p.page-subtitle Material container overview
+      .page-actions
+        = link_to 'Back to material containers', material_containers_path, class: 'btn btn-outline-secondary'
+        = link_to 'Edit', edit_material_container_path(@material_container), class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    .detail-card
+      .detail-table
+        .detail-row
+          .detail-label Job function
+          .detail-value= @material_container.job_function.title
+        .detail-row
+          .detail-label Level
+          .detail-value= @material_container.level.title.presence || @material_container.level.name
+
+      .form-actions.justify-content-between
+        = button_to 'Delete material container', @material_container, method: :delete, data: { turbo_confirm: 'Are you sure you want to remove this material container?' }, class: 'btn btn-danger'
+        = link_to 'Create another', new_material_container_path, class: 'btn btn-outline-primary'

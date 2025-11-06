@@ -1,8 +1,22 @@
-%p{:style => "color: green"}= notice
-= render @job_function
-%div
-  = link_to "Edit this job function", edit_job_function_path(@job_function)
-  |
-  \#{link_to "Back to job functions", job_functions_path}
-  
-  \#{button_to "Destroy this job function", @job_function, method: :delete}
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title= @job_function.title
+        %p.page-subtitle Role definition overview
+      .page-actions
+        = link_to 'Back to job functions', job_functions_path, class: 'btn btn-outline-secondary'
+        = link_to 'Edit', edit_job_function_path(@job_function), class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    .detail-card
+      .detail-table
+        .detail-row
+          .detail-label Title
+          .detail-value= @job_function.title
+
+      .form-actions.justify-content-between
+        = button_to 'Delete job function', @job_function, method: :delete, data: { turbo_confirm: 'Are you sure you want to remove this job function?' }, class: 'btn btn-danger'
+        = link_to 'Create another job function', new_job_function_path, class: 'btn btn-outline-primary'

@@ -1,7 +1,10 @@
-%div{:id => "#{dom_id skill}"}
-  %p
-    %strong Name:
-    = skill.name
-  %p
-    %strong Description:
-    = skill.description
+.modern-card{ id: dom_id(skill) }
+  .card-icon
+    %i.bi.bi-lightbulb
+  %h3.card-title= skill.name
+  .card-meta= skill.skill_category&.name || 'Uncategorised'
+  - if skill.description.present?
+    %p.text-muted.mb-0= truncate(skill.description, length: 140)
+  .card-actions
+    = link_to 'View details', skill, class: 'btn btn-sm btn-outline-primary'
+    = link_to 'Edit', edit_skill_path(skill), class: 'btn btn-sm btn-outline-secondary'

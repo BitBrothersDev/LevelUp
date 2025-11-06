@@ -1,31 +1,33 @@
-.w-100.bg-white.my-2.rounded.px-3.py-1
-  .d-flex.align-items-center
-    %div{"data-bs-target" => "#collapse-learning-material-#{skill_level_item.id}", "data-bs-toggle" => "collapse", :role => "button"}
-      .text-black.fw-normal= skill_level_item.name
-      %small{:style => "font-size:10px"}= !skill_level_item.tip.blank? ? skill_level_item.tip : 'tip'
-    .ms-auto.d-flex
-      = render 'skills/estimation_skill_level_item', skill_level_item: skill_level_item
+- skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item)
 
-      = link_to "View", skill_level_item_path(skill_level_item), class: 'btn btn-outline-primary'
-      .btn.btn-outline-primary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-#{skill_level_item.id}", "data-bs-toggle" => "modal", :type => "button"} Edit
-.collapse{:id => "collapse-learning-material-#{skill_level_item.id}"}
-  - skill_learning_materials = skill_level.learning_materials.where(skill_level_item: skill_level_item)
-  - if skill_learning_materials.any?
-    .row
-      - skill_level.learning_materials.where(skill_level_item: skill_level_item).each do |material|
-        = render 'skills/learning_materials/material', material: material, skill_level: skill_level
-        = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
-      - if skill_learning_materials.size.even?
-        .justify-content-center.d-flex.align-items-center.text-white
-          Add more materials
-          .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
-      - else
-        .col-md-6
-          .border.d-flex.align-items-center.p-3.my-2.text-white-50.bg-purple.rounded.shadow-sm.learn_item
-            .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
-  - else
-    = render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
-    .justify-content-center.d-flex.align-items-center.text-white
-      There is not any materials
-      .btn.btn-link.text-white{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"} + Add
+.modern-card.skill-level-item-card{ id: dom_id(skill_level_item) }
+  .d-flex.flex-wrap.align-items-start.justify-content-between.gap-3
+    .flex-grow-1
+      %h4.card-title.mb-1= skill_level_item.name
+      %p.card-meta.mb-0= skill_level_item.tip.present? ? skill_level_item.tip : 'No additional tips yet.'
+    .floating-toolbar
+      = render 'skills/estimation_skill_level_item', skill_level_item: skill_level_item
+      = link_to 'View', skill_level_item_path(skill_level_item), class: 'btn btn-sm btn-outline-primary'
+      %button.btn.btn-sm.btn-outline-secondary{"data-bs-target" => "#modal-add_skill_level_item-#{skill_level.id}-#{skill_level_item.id}", "data-bs-toggle" => "modal", :type => "button"}
+        %i.bi.bi-pencil
+        Edit
+
+  %button.btn.btn-link.p-0.mt-3.text-decoration-none{ "data-bs-target" => "#collapse-learning-material-#{skill_level_item.id}", "data-bs-toggle" => "collapse", :aria => { expanded: skill_learning_materials.any?, controls: "collapse-learning-material-#{skill_level_item.id}" } }
+    = skill_learning_materials.any? ? 'Hide learning materials' : 'Show learning materials'
+
+  .collapse.mt-3{:class => (skill_learning_materials.any? ? 'show' : ''), :id => "collapse-learning-material-#{skill_level_item.id}"}
+    - if skill_learning_materials.any?
+      .modern-list.mb-3
+        - skill_learning_materials.each do |material|
+          = render 'skills/learning_materials/material', material: material, skill_level: skill_level
+    - else
+      .empty-state.mb-3
+        %h5.mb-2 No materials yet
+        %p.mb-0 Add supporting content to reinforce this item.
+
+    %button.btn.btn-outline-primary.btn-sm{"data-bs-target" => "#modal-add-material-#{skill_level.id}-#{skill_level_item.id}-", "data-bs-toggle" => "modal", :type => "button"}
+      %i.bi.bi-plus-lg.me-1
+      Add material
+
+= render 'skills/add_learning_material', skill_level: skill_level, skill_level_item: skill_level_item
 = render 'skills/add_skill_level_item', skill_level: skill_level, skill_level_item: skill_level_item

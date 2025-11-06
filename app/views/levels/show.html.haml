@@ -1,8 +1,25 @@
-%p{:style => "color: green"}= notice
-= render @level
-%div
-  = link_to "Edit this level", edit_level_path(@level)
-  |
-  \#{link_to "Back to levels", levels_path}
-  
-  \#{button_to "Destroy this level", @level, method: :delete}
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title= @level.title.presence || @level.name
+        %p.page-subtitle Level overview
+      .page-actions
+        = link_to 'Back to levels', levels_path, class: 'btn btn-outline-secondary'
+        = link_to 'Edit', edit_level_path(@level), class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    .detail-card
+      .detail-table
+        .detail-row
+          .detail-label Name
+          .detail-value= @level.name
+        .detail-row
+          .detail-label Title
+          .detail-value= @level.title.presence || 'Not set'
+
+      .form-actions.justify-content-between
+        = button_to 'Delete level', @level, method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this level?' }, class: 'btn btn-danger'
+        = link_to 'Create another level', new_level_path, class: 'btn btn-outline-primary'

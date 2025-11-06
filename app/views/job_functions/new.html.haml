@@ -1,5 +1,10 @@
-%h1 New job function
-= render "form", job_function: @job_function
-%br/
-%div
-  = link_to "Back to job functions", job_functions_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title New job function
+        %p.page-subtitle Define a new role to group related skills
+      .page-actions
+        = link_to 'Back to job functions', job_functions_path, class: 'btn btn-outline-secondary'
+
+    = render 'form', job_function: @job_function

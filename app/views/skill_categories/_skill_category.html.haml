@@ -1,15 +1,23 @@
-%div{:id => "#{dom_id skill_category}"}
-  %p
-    %strong Name:
-    = skill_category.name
-  %p
-    %strong Parent category:
-    = skill_category.parent_category&.name
-  %p
-    %strong Children category:
-    - skill_category.children.each do |children|
-      %br/
-      %strong Name:
-      = children.name
-      %strong Parent category:
-      = children.parent_category&.name
+.modern-card{ id: dom_id(skill_category) }
+  .card-icon
+    %i.bi.bi-diagram-3
+  %h3.card-title= skill_category.name
+  - if skill_category.parent_category.present?
+    .card-meta= "Parent: #{skill_category.parent_category.name}"
+  - else
+    .card-meta Top-level category
+
+  - if skill_category.children.any?
+    .detail-table
+      .detail-row
+        .detail-label Child categories
+        .detail-value
+          .pill-group
+            - skill_category.children.each do |child|
+              %span.pill= child.name
+  - else
+    %p.text-muted.mb-0 No child categories yet.
+
+  .card-actions
+    = link_to 'View details', skill_category, class: 'btn btn-sm btn-outline-primary'
+    = link_to 'Edit', edit_skill_category_path(skill_category), class: 'btn btn-sm btn-outline-secondary'

@@ -1,43 +1,33 @@
-%p{:style => "color: green"}= notice
-.d-flex.align-items-center
-  %h1 Skills
-  .ms-auto
-    %b= link_to "Add new skill", new_skill_path, class: 'btn btn-link'
-#skills
-  / <div class="row mb-2 d-flex justify-content-around">
-  - @skills.each do |skill|
-    / <div class="col-md-4">
-    / <div class="d-flex align-items-center p-4 my-3 text-white-50 bg-purple rounded shadow-sm">
-    / <h6 class="mb-0 text-white lh-100 "><haml_silent></haml_silent></h6>
-    / </div>
-    / </div>
-  / </div>
-%table.table
-  %thead
-    %tr
-      %th{:scope => "col"} Main Skill Category
-      %th{:scope => "col"} Skill Category
-      %th{:scope => "col"} Skill Name
-      %th{:scope => "col"} Estimation
-  %tbody
-    - @skills.each do |hash_parent_categories|
-      - hash_parent_categories.each do |parent_category, skill_category_arr|
-        %tr
-          %td
-            .btn.btn-danger= parent_category
-          %td
-          %td
-          %td
-        - skill_category_arr.each do |skill_category, skill_arr|
-          %tr
-            %td
-            %td
-              .btn.btn-primary= skill_category
-            %td
-            %td
-          - skill_arr.each do |skill|
-            %tr
-              %td
-              %td
-              %td= link_to skill.name , skill
-              %td= render 'skills/skill_estimation', skill: skill
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Skills
+        %p.page-subtitle Discover capabilities and track their mastery
+      .page-actions
+        = link_to 'Add new skill', new_skill_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @skills.present?
+      - @skills.each do |hash_parent_categories|
+        - hash_parent_categories.each do |parent_category, skill_category_arr|
+          .content-card.mb-4
+            .d-flex.align-items-center.mb-3
+              %h2.mb-0.fw-semibold= parent_category.presence || 'Unassigned parent category'
+              .ms-auto.floating-toolbar
+                %span.pill-tag Parent category
+            - skill_category_arr.each do |skill_category, skill_arr|
+              .mb-4
+                .d-flex.align-items-center.mb-2
+                  %h3.mb-0.fs-5= skill_category.presence || 'General'
+                  .ms-auto
+                    %span.pill-tag Skill category
+                .card-grid
+                  - skill_arr.each do |skill|
+                    = render skill
+    - else
+      .empty-state
+        %h3.mb-2 No skills yet
+        %p.mb-0 Start by adding a skill to organise your catalog.

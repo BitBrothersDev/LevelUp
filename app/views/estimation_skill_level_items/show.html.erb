@@ -1,10 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<div class="page-wrapper">
+  <div class="container">
+    <div class="page-header">
+      <div class="title-group">
+        <h1 class="page-title">Estimation item detail</h1>
+        <p class="page-subtitle">Inspect a self-assessment entry</p>
+      </div>
+      <div class="page-actions">
+        <%= link_to "Back to estimation skill level items", estimation_skill_level_items_path, class: "btn btn-outline-secondary" %>
+        <%= link_to "Edit", edit_estimation_skill_level_item_path(@estimation_skill_level_item), class: "btn btn-primary" %>
+      </div>
+    </div>
 
-<%= render @estimation_skill_level_item %>
+    <% if notice.present? %>
+      <div class="modern-alert" role="alert"><%= notice %></div>
+    <% end %>
 
-<div>
-  <%= link_to "Edit this estimation skill level item", edit_estimation_skill_level_item_path(@estimation_skill_level_item) %> |
-  <%= link_to "Back to estimation skill level items", estimation_skill_level_items_path %>
-
-  <%= button_to "Destroy this estimation skill level item", @estimation_skill_level_item, method: :delete %>
+    <div class="detail-card">
+      <%= render @estimation_skill_level_item %>
+      <div class="form-actions justify-content-between">
+        <%= button_to "Delete estimation item", @estimation_skill_level_item, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <%= link_to "Create another", new_estimation_skill_level_item_path, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
 </div>

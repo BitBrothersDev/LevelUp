@@ -1,10 +1,16 @@
-<h1>Editing estimation skill level item</h1>
+<div class="page-wrapper">
+  <div class="container">
+    <div class="page-header">
+      <div class="title-group">
+        <h1 class="page-title">Edit estimation skill level item</h1>
+        <p class="page-subtitle">Fine-tune the expectations captured for this item</p>
+      </div>
+      <div class="page-actions">
+        <%= link_to "Back to estimation skill level items", estimation_skill_level_items_path, class: "btn btn-outline-secondary" %>
+        <%= link_to "View item", @estimation_skill_level_item, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
 
-<%= render "form", estimation_skill_level_item: @estimation_skill_level_item %>
-
-<br>
-
-<div>
-  <%= link_to "Show this estimation skill level item", @estimation_skill_level_item %> |
-  <%= link_to "Back to estimation skill level items", estimation_skill_level_items_path %>
+    <%= render "form", estimation_skill_level_item: @estimation_skill_level_item %>
+  </div>
 </div>

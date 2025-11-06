@@ -1,7 +1,11 @@
-%h1 Editing material container
-= render "form", material_container: @material_container
-%br/
-%div
-  = link_to "Show this material container", @material_container
-  |
-  \#{link_to "Back to material containers", material_containers_path}
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Edit material container
+        %p.page-subtitle Adjust connections between job functions and levels
+      .page-actions
+        = link_to 'Back to material containers', material_containers_path, class: 'btn btn-outline-secondary'
+        = link_to 'View material container', @material_container, class: 'btn btn-outline-primary'
+
+    = render 'form', material_container: @material_container

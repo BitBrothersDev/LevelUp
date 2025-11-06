@@ -1,5 +1,10 @@
-%h1 New skill
-= render "form", skill: @skill
-%br/
-%div
-  = link_to "Back to skills", skills_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title New skill
+        %p.page-subtitle Capture a new capability in your catalogue
+      .page-actions
+        = link_to 'Back to skills', skills_path, class: 'btn btn-outline-secondary'
+
+    = render 'form', skill: @skill

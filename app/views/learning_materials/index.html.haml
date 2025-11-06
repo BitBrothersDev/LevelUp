@@ -1,8 +1,20 @@
-%p{:style => "color: green"}= notice
-%h1 Learning materials
-#learning_materials
-  - @learning_materials.each do |learning_material|
-    = render learning_material
-    %p
-      = link_to "Show this learning material", learning_material
-= link_to "New learning material", new_learning_material_path
+.page-wrapper
+  .container
+    .page-header
+      .title-group
+        %h1.page-title Learning materials
+        %p.page-subtitle Curated resources to accelerate growth
+      .page-actions
+        = link_to 'New learning material', new_learning_material_path, class: 'btn btn-primary'
+
+    - if notice
+      .modern-alert{ role: 'alert' }= notice
+
+    - if @learning_materials.present?
+      #learning_materials.card-grid
+        - @learning_materials.each do |learning_material|
+          = render learning_material
+    - else
+      .empty-state
+        %h3.mb-2 No learning materials yet
+        %p.mb-0 Add your first resource to start building the knowledge base.
